@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<!-- ShopIt Nepal desktop · 01-home.html · 1440px · built on UX/desktop/_shell.html (header, footer and shared <style> verbatim; page CSS in the 2nd <style>) -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1440">
+<title>ShopIt — Home (desktop)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Mukta:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* =====================================================================
+   ShopIt Nepal — "Ujyalo Pasal" desktop design system  v1.0 (2026-11-02)
+   Core: Direction A (amber corner shop).  Skin: .theme-midnight (10pm–4am)
+   Components use SEMANTIC tokens only (--bg, --surface, --text, --primary…)
+   so wrapping anything in .theme-midnight re-skins it with no extra CSS.
+   ===================================================================== */
+
+/* ---------- 1. Raw palette (never use directly in components) ---------- */
+:root {
+  /* Ujyalo Pasal (A) */
+  --amber-500: #F99C00;   /* primary FILL only — never text on light */
+  --amber-700: #B35F00;   /* amber TEXT on cream/white (AA) */
+  --amber-300: #FFC95C;
+  --amber-100: #FFE7B8;
+  --amber-50:  #FFF3DB;
+  --cocoa-900: #2B1A0E;   /* secondary */
+  --cocoa-700: #4A3423;
+  --ink-900:   #1E140A;   /* body text */
+  --ink-600:   #6B5644;   /* muted text (AA on cream) */
+  --ink-400:   #9C8774;   /* placeholders, disabled */
+  --cream-50:  #FFF8EC;   /* page surface */
+  --cream-100: #FBEFD9;   /* image tiles, sunken */
+  --line-200:  #EEDDC2;   /* hairlines, 2px chip outlines */
+  --white:     #FFFFFF;
+  --pink-500:  #FF2357;   /* deals ONLY */
+  --pink-50:   #FFE8EE;
+  --green-600: #1F9D55;   /* success */
+  --green-50:  #E3F5EA;
+  --orange-700:#C2410C;   /* warning */
+  --orange-50: #FFEDE3;
+  --logo-green:#02A235;   /* lives inside the logo; not a UI colour */
+
+  /* Raati Rush (B) — Midnight skin */
+  --night-950: #0E0B1F;
+  --night-900: #17122E;
+  --night-800: #221B42;
+  --night-700: #332A5C;
+  --night-ink: #F4F1FF;
+  --night-ink-2:#B9B0E0;
+  --volt-400:  #C6FF3D;
+  --violet-500:#7B61FF;
+  --mint-400:  #3DFFA2;
+  --gold-400:  #FFB020;
+
+  /* ---------- 2. Semantic tokens (Ujyalo Pasal = default) ---------- */
+  --bg:            var(--cream-50);
+  --surface:       var(--white);
+  --surface-sunk:  var(--cream-100);
+  --surface-inverse: var(--cocoa-900);
+  --text:          var(--ink-900);
+  --text-muted:    var(--ink-600);
+  --text-faint:    var(--ink-400);
+  --text-inverse:  var(--cream-50);
+  --line:          var(--line-200);
+  --line-strong:   var(--cocoa-900);
+  --primary:       var(--amber-500);
+  --primary-soft:  var(--amber-50);
+  --primary-ink:   var(--amber-700);
+  --on-primary:    var(--cocoa-900);
+  --secondary:     var(--cocoa-900);
+  --on-secondary:  var(--cream-50);
+  --accent:        var(--pink-500);
+  --accent-soft:   var(--pink-50);
+  --on-accent:     var(--white);
+  --success:       var(--green-600);
+  --success-soft:  var(--green-50);
+  --warning:       var(--orange-700);
+  --warning-soft:  var(--orange-50);
+  --focus:         var(--amber-500);
+
+  /* ---------- 3. Type ---------- */
+  --font-display: "Baloo 2", "Mukta", system-ui, sans-serif;
+  --font-body:    "Mukta", system-ui, sans-serif;
+  --fs-display-xl: 64px;  --lh-display-xl: 68px;
+  --fs-display-l:  48px;  --lh-display-l:  54px;
+  --fs-h1: 36px; --lh-h1: 42px;
+  --fs-h2: 28px; --lh-h2: 34px;
+  --fs-h3: 22px; --lh-h3: 28px;
+  --fs-h4: 18px; --lh-h4: 24px;
+  --fs-body-l: 18px; --lh-body-l: 28px;
+  --fs-body:   16px; --lh-body:   24px;
+  --fs-small:  14px; --lh-small:  20px;
+  --fs-micro:  12px; --lh-micro:  16px;
+
+  /* ---------- 4. Space (4-pt) ---------- */
+  --s-1: 4px;  --s-2: 8px;  --s-3: 12px; --s-4: 16px; --s-5: 20px;
+  --s-6: 24px; --s-8: 32px; --s-10: 40px; --s-12: 48px; --s-16: 64px;
+  --s-20: 80px; --s-24: 96px;
+
+  /* ---------- 5. Radius / border / shadow ---------- */
+  --r-xs: 6px; --r-sm: 10px; --r-md: 14px; --r-card: 20px; --r-xl: 28px; --r-pill: 999px;
+  --bw: 2px;   /* chunky outline */
+  --shadow-1: 0 1px 2px rgba(43,26,14,.06), 0 2px 6px rgba(43,26,14,.05);
+  --shadow-2: 0 6px 20px rgba(43,26,14,.10), 0 1px 3px rgba(43,26,14,.06);
+  --shadow-3: 0 18px 40px rgba(43,26,14,.16);
+  --shadow-sticker: 3px 3px 0 var(--cocoa-900);
+
+  /* ---------- 6. Layout ---------- */
+  --frame: 1440px;
+  --container: 1280px;   /* 80px side margins */
+  --gutter: 24px;        /* 12 columns × 85.33px */
+  --section-gap: 64px;
+  --header-h: 80px;
+
+  /* ---------- 7. Motion (for devs; static in Figma) ---------- */
+  --ease-spring: cubic-bezier(.34,1.56,.64,1);
+  --dur-fast: 150ms; --dur-base: 220ms;
+}
+
+/* ---------- Midnight skin: 22:00–04:00 (wrap any subtree) ---------- */
+.theme-midnight {
+  --bg:            var(--night-950);
+  --surface:       var(--night-900);
+  --surface-sunk:  var(--night-800);
+  --surface-inverse: var(--night-ink);
+  --text:          var(--night-ink);
+  --text-muted:    var(--night-ink-2);
+  --text-faint:    #7E76A8;
+  --text-inverse:  var(--night-950);
+  --line:          var(--night-700);
+  --line-strong:   var(--night-ink);
+  --primary:       var(--volt-400);
+  --primary-soft:  #2A3315;
+  --primary-ink:   var(--volt-400);
+  --on-primary:    var(--night-950);
+  --secondary:     var(--violet-500);
+  --on-secondary:  var(--white);
+  --accent:        var(--pink-500);
+  --accent-soft:   #3A1530;
+  --on-accent:     var(--white);
+  --success:       var(--mint-400);
+  --success-soft:  #123829;
+  --warning:       var(--gold-400);
+  --warning-soft:  #3A2C10;
+  --focus:         var(--volt-400);
+  --shadow-1: 0 1px 0 rgba(255,255,255,.04), 0 4px 14px rgba(0,0,0,.35);
+  --shadow-2: 0 10px 28px rgba(0,0,0,.45);
+  --shadow-sticker: 3px 3px 0 var(--violet-500);
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* ---------- Base ---------- */
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  width: var(--frame);
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  -webkit-font-smoothing: antialiased;
+}
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+p { margin: 0; }
+h1, h2, h3, h4 { margin: 0; font-family: var(--font-display); color: var(--text); }
+.container { width: var(--container); margin: 0 auto; }
+.np { font-family: var(--font-body); font-weight: 700; }  /* Devanagari accent */
+
+/* Type utilities */
+.t-display-xl { font: 800 var(--fs-display-xl)/var(--lh-display-xl) var(--font-display); letter-spacing: -1px; }
+.t-display-l  { font: 800 var(--fs-display-l)/var(--lh-display-l) var(--font-display); letter-spacing: -.5px; }
+.t-h1 { font: 700 var(--fs-h1)/var(--lh-h1) var(--font-display); }
+.t-h2 { font: 700 var(--fs-h2)/var(--lh-h2) var(--font-display); }
+.t-h3 { font: 700 var(--fs-h3)/var(--lh-h3) var(--font-display); }
+.t-h4 { font: 700 var(--fs-h4)/var(--lh-h4) var(--font-display); }
+.t-body-l { font: 400 var(--fs-body-l)/var(--lh-body-l) var(--font-body); }
+.t-body   { font: 400 var(--fs-body)/var(--lh-body) var(--font-body); }
+.t-small  { font: 400 var(--fs-small)/var(--lh-small) var(--font-body); }
+.t-micro  { font: 600 var(--fs-micro)/var(--lh-micro) var(--font-body); letter-spacing: .3px; }
+.t-eyebrow { font: 700 13px/16px var(--font-body); letter-spacing: 1.4px; text-transform: uppercase; color: var(--primary-ink); }
+.t-muted { color: var(--text-muted); }
+
+/* Icons: inline SVG, 2px rounded stroke */
+.icon { width: 20px; height: 20px; flex: none; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.icon-sm { width: 16px; height: 16px; }
+.icon-lg { width: 24px; height: 24px; }
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  height: 48px; padding: 0 24px; border-radius: var(--r-pill);
+  font: 700 16px/1 var(--font-display); letter-spacing: .2px; white-space: nowrap;
+  border: var(--bw) solid transparent; cursor: pointer;
+}
+.btn-lg { height: 56px; padding: 0 32px; font-size: 18px; }
+.btn-sm { height: 36px; padding: 0 16px; font-size: 14px; }
+.btn-primary   { background: var(--primary); color: var(--on-primary); box-shadow: inset 0 -3px 0 rgba(0,0,0,.12); }
+.btn-secondary { background: var(--secondary); color: var(--on-secondary); }
+.btn-outline   { background: transparent; color: var(--text); border-color: var(--line-strong); }
+.btn-ghost     { background: transparent; color: var(--primary-ink); padding: 0 12px; }
+.btn-deal      { background: var(--accent); color: var(--on-accent); }
+.btn-whatsapp  { background: #25D366; color: #08361A; }
+.btn-disabled  { background: var(--surface-sunk); color: var(--text-faint); box-shadow: none; }
+.btn-block { width: 100%; }
+.btn-icon { width: 44px; height: 44px; padding: 0; border-radius: var(--r-pill); background: var(--surface); border: var(--bw) solid var(--line); color: var(--text); display: inline-flex; align-items: center; justify-content: center; }
+
+/* ---------- Inputs ---------- */
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field-label { font: 600 14px/20px var(--font-body); color: var(--text); }
+.field-help  { font: 400 13px/18px var(--font-body); color: var(--text-muted); }
+.field-error .field-help { color: var(--warning); }
+.input {
+  display: flex; align-items: center; gap: 10px;
+  height: 52px; padding: 0 16px; border-radius: var(--r-md);
+  background: var(--surface); border: var(--bw) solid var(--line);
+  font: 400 16px/24px var(--font-body); color: var(--text);
+}
+.input .placeholder { color: var(--text-faint); }
+.input.is-focus { border-color: var(--focus); box-shadow: 0 0 0 4px var(--primary-soft); }
+.field-error .input { border-color: var(--warning); }
+.input-prefix { font-weight: 700; color: var(--text-muted); padding-right: 10px; border-right: 1px solid var(--line); }
+.textarea { height: 88px; align-items: flex-start; padding-top: 12px; }
+
+.radio-card {
+  display: flex; align-items: center; gap: 14px; padding: 14px 16px;
+  border: var(--bw) solid var(--line); border-radius: var(--r-md); background: var(--surface);
+}
+.radio-card.is-selected { border-color: var(--primary); background: var(--primary-soft); }
+.radio-dot { width: 22px; height: 22px; border-radius: 50%; border: var(--bw) solid var(--text-faint); flex: none; display: flex; align-items: center; justify-content: center; }
+.radio-card.is-selected .radio-dot { border-color: var(--primary-ink); }
+.radio-card.is-selected .radio-dot::after { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--primary-ink); }
+.radio-body { flex: 1; display: flex; flex-direction: column; }
+.radio-title { font: 700 16px/22px var(--font-body); }
+.radio-sub { font: 400 13px/18px var(--font-body); color: var(--text-muted); }
+
+/* ---------- Chips, tags, badges ---------- */
+.chip {
+  display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px;
+  border-radius: var(--r-pill); border: var(--bw) solid var(--line);
+  background: var(--surface); color: var(--text);
+  font: 600 14px/1 var(--font-body); white-space: nowrap;
+}
+.chip-selected { background: var(--secondary); border-color: var(--secondary); color: var(--on-secondary); }
+.chip-eta     { background: var(--success-soft); border-color: transparent; color: var(--success); }
+.chip-eta .live-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--success); box-shadow: 0 0 0 3px rgba(31,157,85,.18); }
+.chip-cooking { background: var(--warning-soft); border-color: transparent; color: var(--warning); }
+.chip-fresh   { background: var(--success-soft); border-color: transparent; color: var(--success); }
+.chip-age {     /* calm, not alarming */
+  background: var(--surface-sunk); border-color: var(--line); color: var(--text-muted); height: 26px; padding: 0 10px; font-size: 12px;
+}
+.chip-age b { color: var(--text); }
+.tag-deal {     /* sticker-blob discount tag, deals ONLY */
+  display: inline-flex; align-items: center; height: 26px; padding: 0 10px;
+  background: var(--accent); color: var(--on-accent);
+  border-radius: 13px 13px 13px 4px; font: 800 13px/1 var(--font-display); letter-spacing: .2px;
+}
+.tag-sticker {  /* "Bestseller", "Ramro choice" */
+  display: inline-flex; align-items: center; gap: 4px; height: 26px; padding: 0 10px;
+  background: var(--primary); color: var(--on-primary); border: var(--bw) solid var(--cocoa-900);
+  border-radius: var(--r-pill); font: 800 12px/1 var(--font-display); box-shadow: 2px 2px 0 var(--cocoa-900);
+}
+.theme-midnight .tag-sticker { border-color: var(--night-950); box-shadow: 2px 2px 0 var(--violet-500); }
+.veg-mark, .nonveg-mark { width: 16px; height: 16px; border: 1.5px solid; border-radius: 3px; display: inline-flex; align-items: center; justify-content: center; flex: none; }
+.veg-mark { border-color: #1F9D55; } .veg-mark::after { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #1F9D55; }
+.nonveg-mark { border-color: #B3261E; } .nonveg-mark::after { content: ""; width: 0; height: 0; border-left: 4px solid transparent; border-right: 4px solid transparent; border-bottom: 7px solid #B3261E; }
+.count-badge { min-width: 22px; height: 22px; padding: 0 6px; border-radius: 11px; background: var(--accent); color: #fff; font: 800 12px/22px var(--font-display); text-align: center; border: 2px solid var(--surface); }
+
+/* Spice meter */
+.spice { display: inline-flex; align-items: center; gap: 3px; font: 600 12px/1 var(--font-body); color: var(--text-muted); }
+.spice i { width: 8px; height: 14px; border-radius: 4px 4px 6px 6px; background: var(--line); display: inline-block; }
+.spice i.on { background: #E5482B; }
+.spice span { margin-left: 4px; }
+
+/* ---------- Qty stepper ---------- */
+.stepper {
+  display: inline-flex; align-items: center; justify-content: space-between;
+  height: 40px; min-width: 112px; padding: 0 4px; border-radius: var(--r-pill);
+  background: var(--primary); color: var(--on-primary);
+}
+.stepper button { width: 32px; height: 32px; border: 0; border-radius: 50%; background: rgba(255,255,255,.35); color: inherit; display: flex; align-items: center; justify-content: center; padding: 0; }
+.theme-midnight .stepper button { background: rgba(14,11,31,.14); }
+.stepper .qty { font: 800 16px/1 var(--font-display); min-width: 28px; text-align: center; }
+.stepper-lg { height: 52px; min-width: 148px; }
+.stepper-lg button { width: 42px; height: 42px; }
+.btn-add {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  height: 40px; min-width: 112px; padding: 0 16px; border-radius: var(--r-pill);
+  background: var(--surface); color: var(--primary-ink); border: var(--bw) solid var(--primary);
+  font: 800 15px/1 var(--font-display);
+}
+
+/* ---------- Product card (grocery) ---------- */
+.product-card {
+  width: 232px; display: flex; flex-direction: column;
+  background: var(--surface); border-radius: var(--r-card); border: 1px solid var(--line);
+  box-shadow: var(--shadow-1); overflow: hidden;
+}
+.product-media { position: relative; height: 188px; margin: 8px 8px 0; border-radius: 14px; background: var(--surface-sunk); display: flex; align-items: center; justify-content: center; }
+.theme-midnight .product-media { background: radial-gradient(circle at 50% 60%, #2E2560 0%, var(--night-800) 70%); }
+.product-media img { height: 148px; width: 170px; object-fit: contain; }
+.product-media .tag-deal { position: absolute; top: 10px; left: 10px; }
+.product-media .fav { position: absolute; top: 10px; right: 10px; width: 32px; height: 32px; border-radius: 50%; background: var(--surface); color: var(--text-muted); display: flex; align-items: center; justify-content: center; }
+.product-body { padding: 12px 16px 16px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+.product-eta { display: flex; align-items: center; gap: 4px; font: 600 12px/16px var(--font-body); color: var(--success); }
+.product-name { font: 600 16px/21px var(--font-body); color: var(--text); height: 42px; overflow: hidden; }
+.product-size { font: 400 13px/18px var(--font-body); color: var(--text-muted); }
+.product-foot { display: flex; align-items: center; justify-content: space-between; margin-top: 6px; }
+.price { display: flex; flex-direction: column; }
+.price-now { font: 800 18px/22px var(--font-display); color: var(--text); }
+.price-was { font: 400 13px/16px var(--font-body); color: var(--text-faint); text-decoration: line-through; }
+.product-foot .btn-add, .product-foot .stepper { min-width: 96px; height: 38px; }
+
+/* ---------- Meal card (cloud kitchen) ---------- */
+.meal-card {
+  width: 296px; display: flex; flex-direction: column;
+  background: var(--surface); border-radius: var(--r-card); border: 1px solid var(--line);
+  box-shadow: var(--shadow-1); overflow: hidden;
+}
+.meal-media { position: relative; height: 200px; background: radial-gradient(circle at 50% 55%, #FFE2A6 0%, #FBD07A 45%, #F3B04A 100%); display: flex; align-items: center; justify-content: center; }
+.theme-midnight .meal-media { background: radial-gradient(circle at 50% 55%, #3B2E7A 0%, #241C4D 55%, var(--night-900) 100%); }
+.meal-media img { width: 210px; height: 180px; object-fit: contain; }
+.meal-media .chip-cooking { position: absolute; left: 12px; bottom: 12px; height: 28px; background: var(--surface); box-shadow: var(--shadow-1); }
+.meal-media .tag-deal { position: absolute; top: 12px; left: 12px; }
+.meal-body { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 8px; }
+.meal-title-row { display: flex; align-items: center; gap: 8px; }
+.meal-name { font: 700 19px/24px var(--font-display); color: var(--text); }
+.meal-desc { font: 400 14px/20px var(--font-body); color: var(--text-muted); height: 40px; overflow: hidden; }
+.meal-meta { display: flex; align-items: center; gap: 12px; font: 600 13px/18px var(--font-body); color: var(--text-muted); }
+.meal-meta .dot { width: 4px; height: 4px; border-radius: 50%; background: var(--text-faint); }
+.meal-foot { display: flex; align-items: center; justify-content: space-between; margin-top: 4px; padding-top: 12px; border-top: 1px dashed var(--line); }
+
+/* ---------- Trust rail ---------- */
+.trust-rail {
+  display: flex; align-items: stretch; gap: 0;
+  background: var(--surface); border: var(--bw) solid var(--line); border-radius: var(--r-card); overflow: hidden;
+}
+.trust-item { flex: 1; display: flex; gap: 12px; align-items: flex-start; padding: 18px 20px; border-right: 1px solid var(--line); }
+.trust-item:last-child { border-right: 0; }
+.trust-item.is-lead { background: var(--primary-soft); flex: 1.2; }
+.trust-icon { width: 40px; height: 40px; border-radius: 12px; background: var(--surface-sunk); color: var(--primary-ink); display: flex; align-items: center; justify-content: center; flex: none; }
+.trust-item.is-lead .trust-icon { background: var(--primary); color: var(--on-primary); }
+.trust-title { font: 700 15px/20px var(--font-body); color: var(--text); }
+.trust-sub { font: 400 13px/18px var(--font-body); color: var(--text-muted); }
+.pay-pill { display: inline-flex; align-items: center; height: 24px; padding: 0 9px; border-radius: 6px; font: 800 12px/1 var(--font-body); margin-top: 6px; margin-right: 4px; }
+.pay-cod    { background: var(--cocoa-900); color: var(--amber-300); }
+.pay-esewa  { background: #60BB46; color: #fff; }
+.pay-khalti { background: #5C2D91; color: #fff; }
+.pay-fonepay{ background: #C8102E; color: #fff; }
+.legal-line { font: 400 12px/16px var(--font-body); color: var(--text-muted); }
+
+/* ---------- Free-delivery progress ---------- */
+.progress { display: flex; flex-direction: column; gap: 8px; }
+.progress-track { height: 10px; border-radius: 5px; background: var(--surface-sunk); overflow: hidden; }
+.progress-fill { height: 10px; border-radius: 5px; background: var(--primary); }
+
+/* ---------- Toasts ---------- */
+.toast {
+  width: 420px; display: flex; align-items: center; gap: 12px; padding: 14px 16px;
+  border-radius: var(--r-md); background: var(--surface-inverse); color: var(--text-inverse);
+  box-shadow: var(--shadow-3);
+}
+.toast-icon { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex: none; }
+.toast-body { flex: 1; display: flex; flex-direction: column; }
+.toast-title { font: 700 15px/20px var(--font-body); }
+.toast-sub { font: 400 13px/18px var(--font-body); opacity: .8; }
+.toast-action { font: 800 14px/1 var(--font-display); color: var(--amber-300); white-space: nowrap; }
+.theme-midnight .toast-action { color: var(--violet-500); }
+.toast-success .toast-icon { background: var(--green-600); color: #fff; }
+.toast-info .toast-icon { background: var(--primary); color: var(--on-primary); }
+.toast-warning .toast-icon { background: #F97316; color: #fff; }
+.toast-error .toast-icon { background: var(--pink-500); color: #fff; }
+
+/* ---------- Section header ---------- */
+.section { padding: var(--section-gap) 0 0; }
+.section-head { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 24px; }
+.section-head .np-kicker { font: 700 15px/20px var(--font-body); color: var(--primary-ink); }
+.section-head h2 { font: 800 32px/38px var(--font-display); }
+.see-all { display: inline-flex; align-items: center; gap: 4px; font: 700 15px/1 var(--font-display); color: var(--primary-ink); }
+
+/* =====================================================================
+   HEADER
+   ===================================================================== */
+.site-header { width: 100%; background: var(--surface); border-bottom: 1px solid var(--line); }
+.header-strip { background: var(--surface-inverse); color: var(--text-inverse); }
+.header-strip .container { height: 36px; display: flex; align-items: center; justify-content: space-between; font: 500 13px/1 var(--font-body); }
+.header-strip .strip-group { display: flex; align-items: center; gap: 20px; }
+.header-strip .strip-item { display: inline-flex; align-items: center; gap: 6px; }
+.header-strip b { color: var(--amber-300); font-weight: 700; }
+.theme-midnight .header-strip b { color: var(--violet-500); }
+.header-main .container { height: var(--header-h); display: flex; align-items: center; gap: 20px; }
+.logo { display: flex; align-items: center; flex: none; }
+.logo img { height: 60px; width: auto; }
+/* Header uses the site's GreenLogoTransaprant.svg (1080² canvas with wide padding): negative margins crop the padding in normal flow */
+.site-header .logo img { width: 80px; height: 80px; max-width: none; margin: -12px -18px; }
+.theme-midnight .site-header .logo { background: var(--cream-50); border-radius: 14px; padding: 4px 8px; }
+.logo-tile { background: var(--cream-50); border-radius: 14px; padding: 4px 10px; }  /* used on dark (Midnight/footer): logo has dark wordmark */
+.location-chip {
+  display: flex; align-items: center; gap: 10px; height: 52px; padding: 0 14px 0 10px;
+  border-radius: var(--r-md); background: var(--primary-soft); flex: none; max-width: 270px;
+}
+.location-chip .pin { width: 34px; height: 34px; border-radius: 10px; background: var(--primary); color: var(--on-primary); display: flex; align-items: center; justify-content: center; flex: none; }
+.location-chip .loc-text { display: flex; flex-direction: column; min-width: 0; }
+.location-chip .loc-eta { font: 800 15px/18px var(--font-display); color: var(--text); white-space: nowrap; }
+.location-chip .loc-place { font: 500 13px/17px var(--font-body); color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.location-chip .chev { color: var(--text-muted); }
+.search {
+  flex: 1; display: flex; align-items: center; gap: 12px; height: 52px; padding: 0 8px 0 18px;
+  border-radius: var(--r-pill); background: var(--surface-sunk); border: var(--bw) solid var(--line);
+}
+.search .icon { color: var(--text-muted); }
+.search-hint { flex: 1; font: 400 16px/1 var(--font-body); color: var(--text-faint); white-space: nowrap; overflow: hidden; }
+.search-hint b { color: var(--text-muted); font-weight: 600; }
+.search-kbd { height: 36px; padding: 0 14px; border-radius: var(--r-pill); background: var(--secondary); color: var(--on-secondary); display: inline-flex; align-items: center; font: 700 14px/1 var(--font-display); }
+.header-actions { display: flex; align-items: center; gap: 8px; flex: none; }
+.account-btn { display: flex; align-items: center; gap: 10px; height: 52px; padding: 0 12px; border-radius: var(--r-md); }
+.account-btn .avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--surface-sunk); color: var(--text); display: flex; align-items: center; justify-content: center; }
+.account-btn .acc-text { display: flex; flex-direction: column; }
+.account-btn .acc-hi { font: 500 12px/15px var(--font-body); color: var(--text-muted); }
+.account-btn .acc-cta { font: 700 15px/18px var(--font-display); color: var(--text); }
+.cart-btn {
+  display: flex; align-items: center; gap: 10px; height: 52px; padding: 0 18px 0 14px;
+  border-radius: var(--r-pill); background: var(--primary); color: var(--on-primary);
+  box-shadow: inset 0 -3px 0 rgba(0,0,0,.12);
+}
+.cart-btn .cart-ico { position: relative; display: flex; }
+.cart-btn .count-badge { position: absolute; top: -10px; right: -12px; border-color: var(--primary); }
+.cart-btn .cart-text { display: flex; flex-direction: column; margin-left: 10px; }
+.cart-btn .cart-label { font: 600 12px/14px var(--font-body); opacity: .85; }
+.cart-btn .cart-total { font: 800 16px/19px var(--font-display); }
+.header-nav { border-top: 1px solid var(--line); }
+.header-nav .container { height: 48px; display: flex; align-items: center; justify-content: space-between; }
+.nav-links { display: flex; align-items: center; gap: 4px; }
+.nav-link { display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 12px; border-radius: var(--r-pill); font: 600 15px/1 var(--font-body); color: var(--text); white-space: nowrap; }
+.nav-link.is-active { background: var(--secondary); color: var(--on-secondary); }
+.nav-link .chip-age { height: 20px; padding: 0 6px; font-size: 11px; border-width: 1px; }
+.nav-midnight { display: inline-flex; align-items: center; gap: 8px; height: 34px; padding: 0 14px; border-radius: var(--r-pill); background: var(--night-950); color: var(--volt-400); font: 700 14px/1 var(--font-display); white-space: nowrap; }
+.theme-midnight .nav-midnight { background: var(--volt-400); color: var(--night-950); }
+
+/* =====================================================================
+   FOOTER
+   ===================================================================== */
+.site-footer { width: 100%; background: var(--cocoa-900); color: #EADCC6; margin-top: var(--s-24); }
+.theme-midnight .site-footer, .theme-midnight.site-footer { background: #08061A; }
+.footer-promise .container { display: flex; gap: 16px; padding: 40px 0 0; }
+.promise { flex: 1; display: flex; align-items: center; gap: 14px; padding: 18px 20px; border-radius: var(--r-card); background: rgba(255,248,236,.06); border: 1px solid rgba(255,248,236,.10); }
+.promise .p-ico { width: 44px; height: 44px; border-radius: 14px; background: var(--amber-500); color: var(--cocoa-900); display: flex; align-items: center; justify-content: center; flex: none; }
+.theme-midnight .promise .p-ico { background: var(--volt-400); color: var(--night-950); }
+.promise .p-title { font: 700 16px/20px var(--font-display); color: #FFF8EC; }
+.promise .p-sub { font: 400 13px/18px var(--font-body); color: #CDBBA1; }
+.theme-midnight .promise .p-sub { color: var(--night-ink-2); }
+.footer-main .container { display: grid; grid-template-columns: 340px 1fr 1fr 1fr 260px; gap: 40px; padding: 48px 0 40px; }
+.footer-brand { display: flex; flex-direction: column; gap: 16px; align-items: flex-start; }
+.footer-brand .logo img { height: 64px; }
+.footer-tagline { font: 400 15px/23px var(--font-body); color: #D9C7AC; }
+.footer-tagline .np { color: var(--amber-300); }
+.theme-midnight .footer-tagline, .theme-midnight .footer-col a { color: var(--night-ink-2); }
+.footer-col { display: flex; flex-direction: column; gap: 12px; }
+.footer-col h4 { font: 700 15px/20px var(--font-display); color: #FFF8EC; margin-bottom: 4px; }
+.footer-col a { font: 400 15px/20px var(--font-body); color: #D9C7AC; }
+.footer-col .wa { display: inline-flex; align-items: center; gap: 8px; color: #7EE2A0; font-weight: 700; }
+.app-badge { display: flex; align-items: center; gap: 10px; height: 52px; padding: 0 16px; border-radius: 12px; background: #120A04; border: 1px solid rgba(255,248,236,.18); color: #FFF8EC; }
+.theme-midnight .app-badge { background: var(--night-900); border-color: var(--night-700); }
+.app-badge small { display: block; font: 400 11px/13px var(--font-body); color: #CDBBA1; }
+.app-badge strong { display: block; font: 700 16px/19px var(--font-display); }
+.footer-legal { border-top: 1px solid rgba(255,248,236,.12); }
+.footer-legal .container { display: flex; align-items: center; justify-content: space-between; padding: 20px 0 28px; gap: 24px; }
+.footer-legal .legal-text { font: 400 13px/19px var(--font-body); color: #BFAE95; }
+.theme-midnight .footer-legal .legal-text { color: var(--night-ink-2); }
+.footer-legal .pays { display: flex; align-items: center; gap: 6px; flex: none; }
+.footer-legal .pays .pay-pill { margin: 0; }
+.theme-midnight .header-strip { background: #08061A; color: var(--night-ink); }
+</style>
+<style>
+/* ===== Page-only CSS (01-home) — tokens only ===== */
+.grid-products { display: grid; grid-template-columns: repeat(5, 232px); justify-content: space-between; row-gap: var(--s-8); }
+.grid-meals { display: grid; grid-template-columns: repeat(4, 296px); justify-content: space-between; }
+.product-sticker { align-self: flex-start; }
+.price-none { text-decoration: none; }
+.product-eta .chip-age { height: 22px; }
+.trust-legal { display: flex; align-items: center; gap: 6px; margin-top: var(--s-3); }
+.section-sub { font: 400 var(--fs-body)/var(--lh-body) var(--font-body); color: var(--text-muted); margin-top: var(--s-1); }
+.head-right { display: flex; align-items: center; gap: var(--s-4); }
+.placeholder-note { display: inline-flex; align-items: center; gap: 6px; height: 22px; padding: 0 8px; border-radius: var(--r-xs); background: var(--surface-sunk); border: 1px dashed var(--text-faint); color: var(--text-muted); font: 600 11px/1 var(--font-body); letter-spacing: .3px; text-transform: uppercase; white-space: nowrap; }
+
+
+.hero { display: grid; grid-template-columns: 784px 472px; justify-content: space-between; padding-top: var(--s-8); }
+.hero-card { display: flex; align-items: center; gap: var(--s-6); padding: var(--s-10) var(--s-10) var(--s-10) var(--s-12); border-radius: var(--r-xl); background: var(--primary-soft); border: var(--bw) solid var(--amber-100); }
+.hero-copy { flex: 1; display: flex; flex-direction: column; gap: var(--s-4); }
+.hero-copy > .chip-eta { align-self: flex-start; }
+.hero-copy .np-kicker { font: 700 18px/24px var(--font-body); color: var(--primary-ink); }
+.hero-copy h1 { color: var(--text); }
+.hero-copy .t-body-l { color: var(--text-muted); }
+.hero-ctas { display: flex; align-items: center; gap: var(--s-3); margin-top: var(--s-2); }
+.hero-plate { width: 240px; height: 240px; flex: none; border-radius: 50%; background: radial-gradient(circle at 50% 45%, var(--amber-300) 0%, var(--primary) 70%); display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-sticker); border: var(--bw) solid var(--cocoa-900); }
+.hero-plate img { width: 210px; height: 210px; object-fit: contain; }
+.hero-plate-wrap { display: flex; flex-direction: column; align-items: center; gap: var(--s-3); }
+.occasions { display: flex; align-items: center; gap: var(--s-2); flex-wrap: wrap; margin-top: var(--s-4); padding-top: var(--s-4); border-top: 1px dashed var(--amber-300); }
+.occasions .lbl { font: 600 14px/20px var(--font-body); color: var(--text-muted); margin-right: var(--s-1); }
+.hero-side { display: flex; flex-direction: column; gap: var(--s-4); }
+.banner-tile { display: block; height: 155px; border-radius: var(--r-card); overflow: hidden; background: var(--surface-sunk); }
+.banner-tile img { width: 100%; height: 155px; object-fit: cover; }
+.loc-card { display: flex; flex-direction: column; gap: var(--s-3); padding: var(--s-5); border-radius: var(--r-card); background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow-1); }
+.loc-row { display: flex; align-items: center; gap: var(--s-3); }
+.loc-row .pin { width: 40px; height: 40px; border-radius: 12px; background: var(--primary); color: var(--on-primary); display: flex; align-items: center; justify-content: center; flex: none; }
+.loc-row .txt { flex: 1; display: flex; flex-direction: column; }
+.loc-row .t1 { font: 700 16px/20px var(--font-display); }
+.loc-row .t2 { font: 400 14px/20px var(--font-body); color: var(--text-muted); }
+.loc-card .input { height: 44px; font-size: 15px; }
+.fee-line { display: flex; align-items: center; gap: var(--s-2); font: 500 13px/18px var(--font-body); color: var(--text-muted); }
+.fee-line span { display: inline-flex; align-items: center; gap: 6px; }
+.fee-line b { color: var(--success); font-weight: 700; }
+.fee-line .dotsep { width: 4px; height: 4px; border-radius: 50%; background: var(--text-faint); }
+.reorder-mini { display: flex; align-items: center; gap: var(--s-3); padding: var(--s-3) var(--s-4); border-radius: var(--r-card); background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow-1); }
+.reorder-mini .rm-thumbs { display: flex; gap: var(--s-1); }
+.reorder-mini .usual-thumb { width: 44px; height: 44px; background: var(--surface-sunk); }
+.reorder-mini .usual-thumb img { width: 36px; height: 36px; }
+.reorder-mini .rm-txt { flex: 1; display: flex; flex-direction: column; }
+.reorder-mini .rm-txt b { font: 700 15px/20px var(--font-display); }
+.reorder-mini .rm-txt span { font: 400 13px/18px var(--font-body); color: var(--text-muted); }
+.cat-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: var(--s-4); }
+.cat-tile { display: flex; flex-direction: column; align-items: center; gap: var(--s-2); }
+.cat-img { width: 100%; height: 128px; border-radius: var(--r-md); display: flex; align-items: center; justify-content: center; border: 1px solid var(--line); }
+.cat-img img { width: 104px; height: 104px; object-fit: contain; }
+.cat-name { display: flex; align-items: center; gap: 6px; font: 600 15px/20px var(--font-body); color: var(--text); }
+.cat-name .chip-age { height: 20px; padding: 0 6px; font-size: 11px; border-width: 1px; }
+.usual-card { width: 232px; display: flex; flex-direction: column; gap: var(--s-3); padding: var(--s-5) var(--s-4) var(--s-4); border-radius: var(--r-card); background: var(--secondary); color: var(--on-secondary); }
+.usual-card .t-micro { color: var(--amber-300); text-transform: uppercase; }
+.usual-card h3 { color: var(--on-secondary); font: 700 20px/24px var(--font-display); }
+.usual-thumbs { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s-2); }
+.usual-thumb { height: 60px; border-radius: var(--r-sm); background: var(--cream-50); display: flex; align-items: center; justify-content: center; }
+.usual-thumb img { width: 48px; height: 48px; object-fit: contain; }
+.usual-sum { display: flex; justify-content: space-between; font: 600 14px/20px var(--font-body); color: #EADCC6; }
+.usual-sum b { font: 800 16px/20px var(--font-display); color: var(--on-secondary); }
+.usual-card .btn { margin-top: auto; }
+.kitchen-panel { padding: var(--s-8); border-radius: var(--r-xl); background: var(--surface-sunk); }
+.kitchen-panel .section-head { margin-bottom: var(--s-6); }
+.kitchen-facts { display: flex; gap: var(--s-6); margin-top: var(--s-6); font: 600 14px/20px var(--font-body); color: var(--text-muted); }
+.kitchen-facts span { display: inline-flex; align-items: center; gap: 6px; }
+.midnight-band { display: flex; align-items: center; gap: var(--s-10); padding: var(--s-10); border-radius: var(--r-xl); }
+.midnight-band .mb-copy { flex: 1; display: flex; flex-direction: column; gap: var(--s-3); }
+.midnight-band .np-kicker { font: 700 15px/20px var(--font-body); color: var(--primary-ink); }
+.midnight-band h2 { font: 800 36px/42px var(--font-display); }
+.midnight-band p { color: var(--text-muted); font-size: 17px; line-height: 26px; }
+.midnight-band .mb-img { width: 560px; flex: none; border-radius: var(--r-card); overflow: hidden; }
+.midnight-band .mb-img img { width: 560px; height: 238px; object-fit: cover; }
+.app-band { display: flex; align-items: center; gap: var(--s-8); padding: var(--s-6) var(--s-8); border-radius: var(--r-card); background: var(--surface); border: 1px solid var(--line); }
+.app-band .app-icon { width: 72px; height: 72px; border-radius: 18px; flex: none; }
+.app-band .ab-copy { flex: 1; }
+.app-band h3 { font: 700 22px/28px var(--font-display); }
+.app-band p { color: var(--text-muted); }
+.app-band .ab-badges { display: flex; gap: var(--s-3); }
+
+</style>
+</head>
+<body>
+<!-- ===================== HEADER (copy verbatim) ===================== -->
+<header class="site-header">
+  <div class="header-strip">
+    <div class="container">
+      <div class="strip-group">
+        <span class="strip-item"><svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> Open <b>24×7</b> across Kathmandu Valley</span>
+        <span class="strip-item"><svg class="icon icon-sm" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/></svg> <b>Cash on delivery</b> · eSewa · Khalti</span>
+        <span class="strip-item"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6"/></svg> VAT bill with your PAN</span>
+      </div>
+      <div class="strip-group">
+        <span class="strip-item"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M4 20l1.4-4A8 8 0 1 1 8.3 18.7z"/></svg> Help? WhatsApp <b>+977 971-2023010</b></span>
+        <span class="strip-item">🎡 Spin &amp; Win</span>
+        <span class="strip-item">📱 Get the app</span>
+      </div>
+    </div>
+  </div>
+  <div class="header-main">
+    <div class="container">
+      <a class="logo" href="#"><img src="https://www.shopitnepal.com/logo/svg/GreenLogoTransaprant.svg" alt="ShopIt"></a>
+      <div class="location-chip">
+        <span class="pin"><svg class="icon" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span>
+        <span class="loc-text">
+          <span class="loc-eta">Delivery in 8–14 min</span>
+          <span class="loc-place">Sitapaila, Nagarjun-4</span>
+        </span>
+        <svg class="icon icon-sm chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+      <div class="search">
+        <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <span class="search-hint">Ke chahiyo aaja? Try <b>“chicken momo”</b> · 1,500+ items</span>
+        <span class="search-kbd">Search</span>
+      </div>
+      <div class="header-actions">
+        <a class="account-btn" href="#">
+          <span class="avatar"><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg></span>
+          <span class="acc-text"><span class="acc-hi">Namaste 🙏</span><span class="acc-cta">Sign in</span></span>
+        </a>
+        <a class="cart-btn" href="#">
+          <span class="cart-ico"><svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span class="count-badge">3</span></span>
+          <span class="cart-text"><span class="cart-label">My cart</span><span class="cart-total">Rs. 1,245</span></span>
+        </a>
+      </div>
+    </div>
+  </div>
+  <nav class="header-nav">
+    <div class="container">
+      <div class="nav-links">
+        <a class="nav-link is-active" href="#"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg> All categories</a>
+        <a class="nav-link" href="#">🍜 Cloud Kitchen</a>
+        <a class="nav-link" href="#">Daily Groceries</a>
+        <a class="nav-link" href="#">Snacks</a>
+        <a class="nav-link" href="#">Chocolates</a>
+        <a class="nav-link" href="#">Soft Drinks</a>
+        <a class="nav-link" href="#">Baby Products</a>
+        <a class="nav-link" href="#">Liquors <span class="chip chip-age"><b>18+</b></span></a>
+      </div>
+      <a class="nav-midnight" href="#"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg> Midnight Cravings</a>
+    </div>
+  </nav>
+</header>
+<!-- =================== /HEADER =================== -->
+
+<main>
+<div class="container">
+  <!-- HERO: appetite first, location as a light confirmation -->
+  <section class="hero">
+    <div class="hero-card">
+      <div class="hero-copy">
+        <span class="chip chip-eta"><span class="live-dot"></span> Delivering to Sitapaila in ~8–14 min</span>
+        <div class="np-kicker">आज बेलुका के खाने? · Khaja time!</div>
+        <h1 class="t-display-xl">Hot momo?<br>Sorted.</h1>
+        <p class="t-body-l">Steaming from our own Sitapaila kitchen in 20–30 min. Need milk or Wai Wai too? Same rider, 1,500+ items.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-primary btn-lg" href="#">Order momo · Rs. 270</a>
+          <a class="btn btn-outline" href="#">Shop groceries</a>
+        </div>
+        <div class="occasions">
+          <span class="lbl">What's the plan?</span>
+          <span class="chip chip-selected">🥟 Bhok lagyo</span>
+          <span class="chip">🫖 Guests coming</span>
+          <span class="chip">🍼 Baby ran out</span>
+          <span class="chip">🪔 Tihar tayari</span>
+          <span class="chip">🎬 Movie night</span>
+        </div>
+      </div>
+      <div class="hero-plate-wrap">
+        <div class="hero-plate"><img src="https://www.shopitnepal.com/files/uploads/image/94ad6f3b-72f5-4b93-9b0c-697f6bb638f4-s249nobg.png" alt="Chicken Steam Momo"></div>
+        <span class="tag-sticker">Ramro choice · 10% off</span>
+      </div>
+    </div>
+    <div class="hero-side">
+      <a class="banner-tile" href="#"><img src="https://www.shopitnepal.com/files/uploads/image/qCDA6mframe-111.webp?v=s149-2026-05-24" alt="Your daily needs: get everything at one place"></a>
+      <a class="banner-tile" href="#"><img src="https://www.shopitnepal.com/files/uploads/image/3fDczJframe-111-1.webp?v=s149-2026-05-24" alt="Drinks"></a>
+      <div class="loc-card">
+        <div class="loc-row">
+          <span class="pin"><svg class="icon" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span>
+          <span class="txt"><span class="t1">Sitapaila, Nagarjun-4</span><span class="t2">We deliver here · 8–14 min right now</span></span>
+          <a class="btn btn-ghost btn-sm" href="#">Change</a>
+        </div>
+        <div class="input"><span class="placeholder">Add a landmark (e.g. opposite Ganesh Mandir)</span></div>
+        <div class="fee-line"><span><svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="6" cy="17" r="3"/><circle cx="18" cy="17" r="3"/><path d="M9 17h6l2-7h-4M5 11h5l2 6"/><path d="M15 6h3"/></svg> Delivery Rs. 49</span><span class="dotsep"></span><span><b>Free over Rs. 1,500</b></span><span class="dotsep"></span><span>No hidden fees</span></div>
+      </div>
+      <div class="reorder-mini">
+        <span class="rm-thumbs"><span class="usual-thumb"><img src="https://www.shopitnepal.com/files/uploads/images/products/mac-cer-ins-bevwcbza2.webp" alt="Mac Cereal Instant Cereal Beverage"></span><span class="usual-thumb"><img src="https://www.shopitnepal.com/files/uploads/images/products/wai-hot-spi-53aCVhX.webp" alt="Wai Wai Hot & Spicy"></span><span class="usual-thumb"><img src="https://www.shopitnepal.com/files/uploads/image/cApzZcdownload-remov.webp" alt="Coke Zero"></span></span>
+        <span class="rm-txt"><b>Your last order</b><span>6 items · Rs. 1,265 · Tue, 28 Oct</span></span>
+        <a class="btn btn-secondary btn-sm" href="#"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M17 2l4 4-4 4"/><path d="M3 11V9a3 3 0 0 1 3-3h15M7 22l-4-4 4-4"/><path d="M21 13v2a3 3 0 0 1-3 3H3"/></svg> Reorder</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATEGORY RAIL -->
+  <section class="section">
+    <div class="section-head"><div><div class="np-kicker">के चाहियो? · Ke chahiyo?</div><h2>Shop by category</h2></div><a class="see-all" href="#">All 14 categories <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+    <div class="cat-grid">
+<a class="cat-tile" href="#"><span class="cat-img" style="background:#E5EFFF"><img src="https://www.shopitnepal.com/files/uploads/image/4923ac15-f8d3-4a7a-93ea-ff23212603f7-tile.png" alt="Baby Products"></span><span class="cat-name">Baby Products</span></a>
+<a class="cat-tile" href="#"><span class="cat-img" style="background:#FFE7B8"><img src="https://www.shopitnepal.com/files/uploads/image/60dec028-21fe-471f-8288-b3ee1d6ddb03-tile.png" alt="Cloud Kitchen"></span><span class="cat-name">Cloud Kitchen</span></a>
+<a class="cat-tile" href="#"><span class="cat-img" style="background:#FCE4EC"><img src="https://www.shopitnepal.com/files/uploads/image/06e00eef-d294-429c-a8be-6fe2987a47dc-tile.png" alt="Daily Groceries"></span><span class="cat-name">Daily Groceries</span></a>
+<a class="cat-tile" href="#"><span class="cat-img" style="background:#E5EFFF"><img src="https://www.shopitnepal.com/files/uploads/image/38sZ9Swatermarked-im.webp" alt="Dairy Products"></span><span class="cat-name">Dairy Products</span></a>
+<a class="cat-tile" href="#"><span class="cat-img" style="background:#FFF8E1"><img src="https://www.shopitnepal.com/files/uploads/image/3c43d4a6-2499-45e9-b99b-d43e7c27fa20-tile.png" alt="Packaged Foods"></span><span class="cat-name">Packaged Foods</span></a>
+<a class="cat-tile" href="#"><span class="cat-img" style="background:#E1E1FF"><img src="https://www.shopitnepal.com/files/uploads/image/3cfa4026-c894-46ee-9ea6-1ce34e9955cf-tile.png" alt="Chocolates"></span><span class="cat-name">Chocolates</span></a>
+<a class="cat-tile" href="#"><span class="cat-img" style="background:#E5EFFF"><img src="https://www.shopitnepal.com/files/uploads/image/019e6d95-0a92-747b-9a56-fb45dbf146e8-tile.png" alt="Ice Creams"></span><span class="cat-name">Ice Creams</span></a>
+<a class="cat-tile" href="#"><span class="cat-img" style="background:#FFFEE9"><img src="https://www.shopitnepal.com/files/uploads/image/0fe20f47-3646-42a9-9c35-3409a55de164-tile.png" alt="Soft Drinks"></span><span class="cat-name">Soft Drinks</span></a>
+<a class="cat-tile" href="#"><span class="cat-img" style="background:#E5EFFF"><img src="https://www.shopitnepal.com/files/uploads/image/6f86a013-b009-451e-8d96-9cc0a7ad372b-tile.png" alt="Personal Care"></span><span class="cat-name">Personal Care</span></a>
+<a class="cat-tile" href="#"><span class="cat-img" style="background:#E5EFFF"><img src="https://www.shopitnepal.com/files/uploads/image/693c5160-bba7-4e14-b647-7336390b5d86-tile.png" alt="Home & Kitchen"></span><span class="cat-name">Home & Kitchen</span></a>
+<a class="cat-tile" href="#"><span class="cat-img" style="background:#E5EFFF"><img src="https://www.shopitnepal.com/files/uploads/image/019da1bb-e06a-7289-9d2b-5f8468319aa2-tile.png" alt="Home & Living"></span><span class="cat-name">Home & Living</span></a>
+<a class="cat-tile" href="#"><span class="cat-img" style="background:#E5EFFF"><img src="https://www.shopitnepal.com/files/uploads/image/a16c3015-14c2-449c-af71-18a8318ad38c-tile.png" alt="Party Supplies"></span><span class="cat-name">Party Supplies</span></a>
+<a class="cat-tile" href="#"><span class="cat-img" style="background:#E5EFFF"><img src="https://www.shopitnepal.com/files/uploads/image/019e48af-62b2-76aa-ae7e-b8ede6f549f2-tile.png" alt="Hajmola"></span><span class="cat-name">Hajmola</span></a>
+<a class="cat-tile" href="#"><span class="cat-img" style="background:#E8E8E8"><img src="https://www.shopitnepal.com/files/uploads/image/839de095-a38e-4d59-90f9-0be22db80fcc-tile.png" alt="Liquors"></span><span class="cat-name">Liquors <span class="chip chip-age"><b>18+</b></span></span></a>
+    </div>
+  </section>
+
+  <!-- YOUR USUAL -->
+  <section class="section">
+    <div class="section-head"><div><div class="np-kicker">Pheri kinnus · फेरि किन्नुस्</div><h2>Your usual, one tap away</h2></div><div class="head-right"><span class="section-sub">Based on your last 4 orders from this number</span><a class="see-all" href="#">Order history <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></div>
+    <div class="grid-products">
+      <article class="usual-card">
+        <span class="t-micro">Last basket · Tue, 28 Oct</span>
+        <h3>Same as last week?</h3>
+        <div class="usual-thumbs"><span class="usual-thumb"><img src="https://www.shopitnepal.com/files/uploads/images/products/mac-cer-ins-bevwcbza2.webp" alt="Mac Cereal Instant Cereal Beverage"></span><span class="usual-thumb"><img src="https://www.shopitnepal.com/files/uploads/images/products/wai-hot-spi-53aCVhX.webp" alt="Wai Wai Hot & Spicy"></span><span class="usual-thumb"><img src="https://www.shopitnepal.com/files/uploads/image/cApzZcdownload-remov.webp" alt="Coke Zero"></span><span class="usual-thumb"><img src="https://www.shopitnepal.com/files/uploads/image/BecFg778934-jpg-remo.webp" alt="Baby Sensitive Wipes"></span><span class="usual-thumb"><img src="https://www.shopitnepal.com/files/uploads/image/Q9iVYr20260205-13362.webp" alt="HiLife Kurum Kurum Chuira"></span><span class="usual-thumb"><img src="https://www.shopitnepal.com/files/uploads/images/products/dov-hai-sha-175YApwMn.webp" alt="Dove Hair Fall Rescue Shampoo"></span></div>
+        <div class="usual-sum"><span>6 items</span><b>Rs. 1,265</b></div>
+        <a class="btn btn-primary btn-block" href="#"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M17 2l4 4-4 4"/><path d="M3 11V9a3 3 0 0 1 3-3h15M7 22l-4-4 4-4"/><path d="M21 13v2a3 3 0 0 1-3 3H3"/></svg> Reorder all</a>
+      </article>
+      <article class="product-card">
+  <div class="product-media"><span class="tag-deal">-6%</span><span class="fav"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg></span><img src="https://www.shopitnepal.com/files/uploads/images/products/mac-cer-ins-bevwcbza2.webp" alt="Mac Cereal Instant Cereal Beverage"></div>
+  <div class="product-body">
+    <div class="product-eta"><svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> 8–14 min</div><span class="tag-sticker product-sticker">Your usual</span>
+    <div class="product-name">Mac Cereal Instant Cereal Beverage</div>
+    <div class="product-size">1 jar</div>
+    <div class="product-foot"><div class="price"><span class="price-now">Rs. 550</span><span class="price-was">Rs. 585</span></div><span class="btn-add"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg> Add</span></div>
+  </div>
+</article>
+      <article class="product-card">
+  <div class="product-media"><span class="tag-deal">-10%</span><span class="fav"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg></span><img src="https://www.shopitnepal.com/files/uploads/images/products/wai-hot-spi-53aCVhX.webp" alt="Wai Wai Hot & Spicy"></div>
+  <div class="product-body">
+    <div class="product-eta"><svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> 8–14 min</div>
+    <div class="product-name">Wai Wai Hot & Spicy</div>
+    <div class="product-size">Family pack</div>
+    <div class="product-foot"><div class="price"><span class="price-now">Rs. 225</span><span class="price-was">Rs. 250</span></div><span class="btn-add"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg> Add</span></div>
+  </div>
+</article>
+      <article class="product-card">
+  <div class="product-media"><span class="fav"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg></span><img src="https://www.shopitnepal.com/files/uploads/image/cApzZcdownload-remov.webp" alt="Coke Zero"></div>
+  <div class="product-body">
+    <div class="product-eta"><svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> 8–14 min</div>
+    <div class="product-name">Coke Zero</div>
+    <div class="product-size">250 ml</div>
+    <div class="product-foot"><div class="price"><span class="price-now">Rs. 35</span><span class="price-was">Rs. 40</span></div><span class="btn-add"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg> Add</span></div>
+  </div>
+</article>
+      <article class="product-card">
+  <div class="product-media"><span class="tag-deal">-7%</span><span class="fav"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg></span><img src="https://www.shopitnepal.com/files/uploads/image/BecFg778934-jpg-remo.webp" alt="Baby Sensitive Wipes"></div>
+  <div class="product-body">
+    <div class="product-eta"><svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> 8–14 min</div>
+    <div class="product-name">Baby Sensitive Wipes</div>
+    <div class="product-size">80 sheets</div>
+    <div class="product-foot"><div class="price"><span class="price-now">Rs. 140</span><span class="price-was">Rs. 150</span></div><span class="btn-add"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg> Add</span></div>
+  </div>
+</article>
+    </div>
+  </section>
+
+  <!-- DEAL SHELF -->
+  <section class="section">
+    <div class="section-head"><div><div class="np-kicker">Aaja ko deal · आजको अफर</div><h2>Today’s honest deals</h2></div><div class="head-right"><span class="section-sub">Real cuts on the MRP printed on the pack</span><a class="see-all" href="#">All deals <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></div>
+    <div class="grid-products">
+      <article class="product-card">
+  <div class="product-media"><span class="tag-deal">-11%</span><span class="fav"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg></span><img src="https://www.shopitnepal.com/files/uploads/image/pyDkWgd6fe7d56-845a-.webp" alt="NGPL Premium Long Grain Basmati Rice"></div>
+  <div class="product-body">
+    <div class="product-eta"><svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> 8–14 min</div>
+    <div class="product-name">NGPL Premium Long Grain Basmati Rice</div>
+    <div class="product-size">20 kg</div>
+    <div class="product-foot"><div class="price"><span class="price-now">Rs. 3,750</span><span class="price-was">Rs. 4,200</span></div><span class="btn-add"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg> Add</span></div>
+  </div>
+</article>
+      <article class="product-card">
+  <div class="product-media"><span class="tag-deal">-11%</span><span class="fav"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg></span><img src="https://www.shopitnepal.com/files/uploads/image/q3BBh9b2351fdab3e1ef.webp" alt="White Rabbit Creamy Candy"></div>
+  <div class="product-body">
+    <div class="product-eta"><svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> 8–14 min</div>
+    <div class="product-name">White Rabbit Creamy Candy</div>
+    <div class="product-size">108 g</div>
+    <div class="product-foot"><div class="price"><span class="price-now">Rs. 240</span><span class="price-was">Rs. 270</span></div><span class="btn-add"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg> Add</span></div>
+  </div>
+</article>
+      <article class="product-card">
+  <div class="product-media"><span class="tag-deal">-12%</span><span class="fav"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg></span><img src="https://www.shopitnepal.com/files/uploads/image/v2TK24img-20260603-1.webp" alt="Nepali Aalu Chips"></div>
+  <div class="product-body">
+    <div class="product-eta"><svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> 8–14 min</div><span class="tag-sticker product-sticker">Bestseller</span>
+    <div class="product-name">Nepali Aalu Chips</div>
+    <div class="product-size">1 pack</div>
+    <div class="product-foot"><div class="price"><span class="price-now">Rs. 150</span><span class="price-was">Rs. 170</span></div><span class="btn-add"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg> Add</span></div>
+  </div>
+</article>
+      <article class="product-card">
+  <div class="product-media"><span class="tag-deal">-12%</span><span class="fav"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg></span><img src="https://www.shopitnepal.com/files/uploads/images/products/pon-pur-was-100v3byZi.webp" alt="Ponds Pure Detox Face Wash"></div>
+  <div class="product-body">
+    <div class="product-eta"><svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> 8–14 min</div>
+    <div class="product-name">Ponds Pure Detox Face Wash</div>
+    <div class="product-size">100 g</div>
+    <div class="product-foot"><div class="price"><span class="price-now">Rs. 215</span><span class="price-was">Rs. 245</span></div><span class="btn-add"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg> Add</span></div>
+  </div>
+</article>
+      <article class="product-card">
+  <div class="product-media"><span class="tag-deal">-6%</span><span class="fav"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg></span><img src="https://www.shopitnepal.com/files/uploads/images/products/dov-hai-sha-175YApwMn.webp" alt="Dove Hair Fall Rescue Shampoo"></div>
+  <div class="product-body">
+    <div class="product-eta"><svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> 8–14 min</div>
+    <div class="product-name">Dove Hair Fall Rescue Shampoo</div>
+    <div class="product-size">175 ml</div>
+    <div class="product-foot"><div class="price"><span class="price-now">Rs. 225</span><span class="price-was">Rs. 240</span></div><span class="btn-add"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg> Add</span></div>
+  </div>
+</article>
+    </div>
+  </section>
+
+  <!-- CLOUD KITCHEN: COOKING NOW -->
+  <section class="section">
+    <div class="kitchen-panel">
+      <div class="section-head"><div><div class="np-kicker">Bhok lagyo? · भोक लाग्यो?</div><h2>Cooking now in our Sitapaila kitchen</h2></div><div class="head-right"><span class="chip chip-cooking"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M3 11h14a0 0 0 0 1 0 0 7 7 0 0 1-14 0z"/><path d="M17 11h4"/><path d="M8 7c0-1 1-1.5 1-2.5M12 7c0-1 1-1.5 1-2.5"/></svg> Kitchen open 24×7</span><a class="see-all" href="#">Full menu <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></div>
+      <div class="grid-meals">
+        <article class="meal-card">
+  <div class="meal-media"><span class="tag-deal">-10%</span><img src="https://www.shopitnepal.com/files/uploads/image/94ad6f3b-72f5-4b93-9b0c-697f6bb638f4-s249nobg.png" alt="Chicken Steam Momo"><span class="chip chip-cooking"><svg class="icon" viewBox="0 0 24 24"><path d="M3 11h14a0 0 0 0 1 0 0 7 7 0 0 1-14 0z"/><path d="M17 11h4"/><path d="M8 7c0-1 1-1.5 1-2.5M12 7c0-1 1-1.5 1-2.5"/></svg> Cooking now · 20–30 min</span></div>
+  <div class="meal-body">
+    <div class="meal-title-row"><span class="nonveg-mark"></span><span class="meal-name">Chicken Steam Momo</span></div>
+    <p class="meal-desc">Juicy chicken, timur-tomato achar on the side.</p>
+    <div class="meal-meta"><span>10 pcs</span><span class="dot"></span><span class="spice"><i class="on"></i><i class="on"></i><i></i><span>Medium</span></span></div>
+    <div class="meal-foot"><div class="price"><span class="price-now">Rs. 270</span><span class="price-was">Rs. 300</span></div><span class="stepper"><button><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M5 12h14"/></svg></button><span class="qty">1</span><button><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button></span></div>
+  </div>
+</article>
+        <article class="meal-card">
+  <div class="meal-media"><span class="tag-deal">-10%</span><img src="https://www.shopitnepal.com/files/uploads/image/ff229b1b-6de3-49cd-a8be-c2f8181c76b6-s249nobg.png" alt="Paneer Biryani"><span class="chip chip-cooking"><svg class="icon" viewBox="0 0 24 24"><path d="M3 11h14a0 0 0 0 1 0 0 7 7 0 0 1-14 0z"/><path d="M17 11h4"/><path d="M8 7c0-1 1-1.5 1-2.5M12 7c0-1 1-1.5 1-2.5"/></svg> Cooking now · 20–30 min</span></div>
+  <div class="meal-body">
+    <div class="meal-title-row"><span class="veg-mark"></span><span class="meal-name">Paneer Biryani</span></div>
+    <p class="meal-desc">Dum-cooked basmati, paneer tikka, raita.</p>
+    <div class="meal-meta"><span>Full plate</span><span class="dot"></span><span class="spice"><i class="on"></i><i class="on"></i><i></i><span>Medium</span></span></div>
+    <div class="meal-foot"><div class="price"><span class="price-now">Rs. 450</span><span class="price-was">Rs. 500</span></div><span class="btn-add"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg> Add</span></div>
+  </div>
+</article>
+        <article class="meal-card">
+  <div class="meal-media"><span class="tag-deal">-10%</span><img src="https://www.shopitnepal.com/files/uploads/image/880d0cb9-0d77-4229-8695-91e64a399255-s249nobg.png" alt="Buff Choila"><span class="chip chip-cooking"><svg class="icon" viewBox="0 0 24 24"><path d="M3 11h14a0 0 0 0 1 0 0 7 7 0 0 1-14 0z"/><path d="M17 11h4"/><path d="M8 7c0-1 1-1.5 1-2.5M12 7c0-1 1-1.5 1-2.5"/></svg> Cooking now · 20–30 min</span></div>
+  <div class="meal-body">
+    <div class="meal-title-row"><span class="nonveg-mark"></span><span class="meal-name">Buff Choila</span></div>
+    <p class="meal-desc">Newari-style smoky buff, mustard oil, beaten rice.</p>
+    <div class="meal-meta"><span>Full plate</span><span class="dot"></span><span class="spice"><i class="on"></i><i class="on"></i><i class="on"></i><span>Hot</span></span></div>
+    <div class="meal-foot"><div class="price"><span class="price-now">Rs. 450</span><span class="price-was">Rs. 500</span></div><span class="btn-add"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg> Add</span></div>
+  </div>
+</article>
+        <article class="meal-card">
+  <div class="meal-media"><span class="tag-deal">-17%</span><img src="https://www.shopitnepal.com/files/uploads/image/2602ded1-da32-4c8e-8fbb-4d49c2eb1604-s249nobg.png" alt="Mutton Momo"><span class="chip chip-cooking"><svg class="icon" viewBox="0 0 24 24"><path d="M3 11h14a0 0 0 0 1 0 0 7 7 0 0 1-14 0z"/><path d="M17 11h4"/><path d="M8 7c0-1 1-1.5 1-2.5M12 7c0-1 1-1.5 1-2.5"/></svg> Cooking now · 20–30 min</span></div>
+  <div class="meal-body">
+    <div class="meal-title-row"><span class="nonveg-mark"></span><span class="meal-name">Mutton Momo</span></div>
+    <p class="meal-desc">Rich mutton filling, extra-hot achar.</p>
+    <div class="meal-meta"><span>10 pcs</span><span class="dot"></span><span class="spice"><i class="on"></i><i class="on"></i><i class="on"></i><span>Hot</span></span></div>
+    <div class="meal-foot"><div class="price"><span class="price-now">Rs. 375</span><span class="price-was">Rs. 450</span></div><span class="stepper"><button><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M5 12h14"/></svg></button><span class="qty">1</span><button><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button></span></div>
+  </div>
+</article>
+      </div>
+      <div class="kitchen-facts">
+        <span><svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> Made to order, never reheated</span>
+        <span><svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="6" cy="17" r="3"/><circle cx="18" cy="17" r="3"/><path d="M9 17h6l2-7h-4M5 11h5l2 6"/><path d="M15 6h3"/></svg> Kitchen and groceries come with one rider</span>
+        <span><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg> Cold or late? Tell us on WhatsApp and we make it right</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST STRIP -->
+  <section class="section">
+    <div class="section-head"><div><div class="np-kicker">भरोसा · Bharosa</div><h2>Trust, right at your door</h2></div></div>
+    <div class="trust-rail">
+  <div class="trust-item is-lead"><span class="trust-icon"><svg class="icon" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/></svg></span><div><div class="trust-title">Pay at your door</div><div class="trust-sub">Cash on delivery is fine. Count it, then pay.</div><span class="pay-pill pay-cod">Cash on delivery</span></div></div>
+  <div class="trust-item"><span class="trust-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M4 7h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4z"/><path d="M4 7V6a2 2 0 0 1 2-2h10v3"/><circle cx="16" cy="13.5" r="1.2"/></svg></span><div><div class="trust-title">Or pay by wallet</div><div class="trust-sub">Instant, with a receipt in your app</div><span class="pay-pill pay-esewa">eSewa</span><span class="pay-pill pay-khalti">Khalti</span></div></div>
+  <div class="trust-item"><span class="trust-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg></span><div><div class="trust-title">Fresh or refund</div><div class="trust-sub">Expired, damaged or wrong? Free replacement or your money back.</div></div></div>
+  <div class="trust-item"><span class="trust-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M4 20l1.4-4A8 8 0 1 1 8.3 18.7z"/></svg></span><div><div class="trust-title">Real humans, 24×7</div><div class="trust-sub">WhatsApp +977 971-2023010, we reply in minutes</div></div></div>
+</div>
+<p class="legal-line trust-legal"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6"/></svg> VAT bill with every order · Shopit Nepal Pvt. Ltd. · Reg. no. 376790/82/83 · PAN 60XXXXXXX</p>
+  </section>
+
+  <!-- MIDNIGHT TEASER (Midnight skin on a wrapper section, per _spec.md) -->
+  <section class="section">
+    <div class="midnight-band theme-midnight">
+      <div class="mb-copy">
+        <div class="np-kicker"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg> After 10pm · Midnight mode</div>
+        <h2>Bhok lagyo at 1am? We're still open.</h2>
+        <p>Chips, cold drinks and ice cream in 9–15 min, hot momo in 20–30 min, all night across the Valley.</p>
+        <div class="hero-ctas"><a class="btn btn-primary" href="#">See the late-night menu</a></div>
+      </div>
+      <div class="mb-img"><img src="https://www.shopitnepal.com/files/uploads/image/midnight-cravings-2026-06.webp?v=s149-2026-05-24" alt="Midnight cravings, 24 hrs delivery"></div>
+    </div>
+  </section>
+
+  <!-- APP DOWNLOAD: secondary band, not the header lead -->
+  <section class="section">
+    <div class="app-band">
+      <img class="app-icon" src="https://www.shopitnepal.com/favicon/android-chrome-512x512.png" alt="ShopIt app icon">
+      <div class="ab-copy">
+        <h3>Even quicker on the app</h3>
+        <p>Watch your rider live, reorder your usual in one tap, and save your landmark once.</p>
+      </div>
+      <div class="ab-badges">
+        <a class="app-badge" href="#"><svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M5 3l14 9-14 9z"/></svg><span><small>Get it on</small><strong>Google Play</strong></span></a>
+        <a class="app-badge" href="#"><svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M12 8c-1.2 0-2.4-.8-4-.8-3 0-4.5 2.6-4.5 5.6 0 4 2.5 8.2 4.5 8.2 1.2 0 2-.7 4-.7s2.8.7 4 .7c2 0 4.5-4.2 4.5-8.2 0-3-1.5-5.6-4.5-5.6-1.6 0-2.8.8-4 .8zM12 7c0-2 1.5-4 3.5-4"/></svg><span><small>Download on the</small><strong>App Store</strong></span></a>
+      </div>
+    </div>
+  </section>
+</div>
+</main>
+
+<!-- ===================== FOOTER (copy verbatim) ===================== -->
+<footer class="site-footer">
+  <div class="footer-promise">
+    <div class="container">
+      <div class="promise"><span class="p-ico"><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><div><div class="p-title">8–14 min, honestly</div><div class="p-sub">A live ETA range, never a fake countdown</div></div></div>
+      <div class="promise"><span class="p-ico"><svg class="icon" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/></svg></span><div><div class="p-title">Pay at your door</div><div class="p-sub">Cash on delivery, or eSewa and Khalti</div></div></div>
+      <div class="promise"><span class="p-ico"><svg class="icon" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg></span><div><div class="p-title">Taaja guarantee</div><div class="p-sub">Expired or damaged? We replace it free</div></div></div>
+      <div class="promise"><span class="p-ico"><svg class="icon" viewBox="0 0 24 24"><path d="M4 20l1.4-4A8 8 0 1 1 8.3 18.7z"/></svg></span><div><div class="p-title">Real humans, 24×7</div><div class="p-sub">WhatsApp +977 971-2023010</div></div></div>
+    </div>
+  </div>
+  <div class="footer-main">
+    <div class="container">
+      <div class="footer-brand">
+        <a class="logo logo-tile" href="#"><img src="https://www.shopitnepal.com/footer-logo.svg" alt="ShopIt"></a>
+        <p class="footer-tagline">Your corner shop, now at app speed. Groceries, snacks and hot food from our own cloud kitchen, delivered across Kathmandu in minutes. <span class="np">उज्यालो पसल, छिटो सेवा।</span></p>
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <a href="#">Cloud Kitchen</a><a href="#">Daily Groceries</a><a href="#">Snacks &amp; Drinks</a><a href="#">Baby Products</a><a href="#">Midnight Cravings 🌙</a>
+      </div>
+      <div class="footer-col">
+        <h4>Help</h4>
+        <a href="#">Track my order</a><a href="#">Returns &amp; refunds</a><a href="#">Where we deliver</a><a href="#">FAQs</a><a class="wa" href="#"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M4 20l1.4-4A8 8 0 1 1 8.3 18.7z"/></svg> WhatsApp us</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="#">About us</a><a href="#">Company info</a><a href="#">Contact</a><a href="#">Privacy policy</a><a href="#">Terms &amp; conditions</a>
+      </div>
+      <div class="footer-col">
+        <h4>Get the app</h4>
+        <a class="app-badge" href="#"><svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M5 3l14 9-14 9z"/></svg><span><small>Get it on</small><strong>Google Play</strong></span></a>
+        <a class="app-badge" href="#"><svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M12 8c-1.2 0-2.4-.8-4-.8-3 0-4.5 2.6-4.5 5.6 0 4 2.5 8.2 4.5 8.2 1.2 0 2-.7 4-.7s2.8.7 4 .7c2 0 4.5-4.2 4.5-8.2 0-3-1.5-5.6-4.5-5.6-1.6 0-2.8.8-4 .8zM12 7c0-2 1.5-4 3.5-4"/></svg><span><small>Download on the</small><strong>App Store</strong></span></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-legal">
+    <div class="container">
+      <p class="legal-text">© 2026 Shopit Nepal Pvt. Ltd. · Reg. no. 376790/82/83 · PAN 60XXXXXXX · Sitapaila, Nagarjun-4, Kathmandu · Made with maya in Kathmandu</p>
+      <div class="pays"><span class="pay-pill pay-cod">Cash on delivery</span><span class="pay-pill pay-esewa">eSewa</span><span class="pay-pill pay-khalti">Khalti</span></div>
+    </div>
+  </div>
+</footer>
+<!-- =================== /FOOTER =================== -->
+</body>
+</html>

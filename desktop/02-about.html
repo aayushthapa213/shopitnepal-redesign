@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<!-- ShopIt Nepal desktop · 02-about.html · 1440px · built on UX/desktop/_shell.html (header, footer and shared <style> verbatim; page CSS in the 2nd <style>) -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1440">
+<title>ShopIt — About us (desktop)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Mukta:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* =====================================================================
+   ShopIt Nepal — "Ujyalo Pasal" desktop design system  v1.0 (2026-11-02)
+   Core: Direction A (amber corner shop).  Skin: .theme-midnight (10pm–4am)
+   Components use SEMANTIC tokens only (--bg, --surface, --text, --primary…)
+   so wrapping anything in .theme-midnight re-skins it with no extra CSS.
+   ===================================================================== */
+
+/* ---------- 1. Raw palette (never use directly in components) ---------- */
+:root {
+  /* Ujyalo Pasal (A) */
+  --amber-500: #F99C00;   /* primary FILL only — never text on light */
+  --amber-700: #B35F00;   /* amber TEXT on cream/white (AA) */
+  --amber-300: #FFC95C;
+  --amber-100: #FFE7B8;
+  --amber-50:  #FFF3DB;
+  --cocoa-900: #2B1A0E;   /* secondary */
+  --cocoa-700: #4A3423;
+  --ink-900:   #1E140A;   /* body text */
+  --ink-600:   #6B5644;   /* muted text (AA on cream) */
+  --ink-400:   #9C8774;   /* placeholders, disabled */
+  --cream-50:  #FFF8EC;   /* page surface */
+  --cream-100: #FBEFD9;   /* image tiles, sunken */
+  --line-200:  #EEDDC2;   /* hairlines, 2px chip outlines */
+  --white:     #FFFFFF;
+  --pink-500:  #FF2357;   /* deals ONLY */
+  --pink-50:   #FFE8EE;
+  --green-600: #1F9D55;   /* success */
+  --green-50:  #E3F5EA;
+  --orange-700:#C2410C;   /* warning */
+  --orange-50: #FFEDE3;
+  --logo-green:#02A235;   /* lives inside the logo; not a UI colour */
+
+  /* Raati Rush (B) — Midnight skin */
+  --night-950: #0E0B1F;
+  --night-900: #17122E;
+  --night-800: #221B42;
+  --night-700: #332A5C;
+  --night-ink: #F4F1FF;
+  --night-ink-2:#B9B0E0;
+  --volt-400:  #C6FF3D;
+  --violet-500:#7B61FF;
+  --mint-400:  #3DFFA2;
+  --gold-400:  #FFB020;
+
+  /* ---------- 2. Semantic tokens (Ujyalo Pasal = default) ---------- */
+  --bg:            var(--cream-50);
+  --surface:       var(--white);
+  --surface-sunk:  var(--cream-100);
+  --surface-inverse: var(--cocoa-900);
+  --text:          var(--ink-900);
+  --text-muted:    var(--ink-600);
+  --text-faint:    var(--ink-400);
+  --text-inverse:  var(--cream-50);
+  --line:          var(--line-200);
+  --line-strong:   var(--cocoa-900);
+  --primary:       var(--amber-500);
+  --primary-soft:  var(--amber-50);
+  --primary-ink:   var(--amber-700);
+  --on-primary:    var(--cocoa-900);
+  --secondary:     var(--cocoa-900);
+  --on-secondary:  var(--cream-50);
+  --accent:        var(--pink-500);
+  --accent-soft:   var(--pink-50);
+  --on-accent:     var(--white);
+  --success:       var(--green-600);
+  --success-soft:  var(--green-50);
+  --warning:       var(--orange-700);
+  --warning-soft:  var(--orange-50);
+  --focus:         var(--amber-500);
+
+  /* ---------- 3. Type ---------- */
+  --font-display: "Baloo 2", "Mukta", system-ui, sans-serif;
+  --font-body:    "Mukta", system-ui, sans-serif;
+  --fs-display-xl: 64px;  --lh-display-xl: 68px;
+  --fs-display-l:  48px;  --lh-display-l:  54px;
+  --fs-h1: 36px; --lh-h1: 42px;
+  --fs-h2: 28px; --lh-h2: 34px;
+  --fs-h3: 22px; --lh-h3: 28px;
+  --fs-h4: 18px; --lh-h4: 24px;
+  --fs-body-l: 18px; --lh-body-l: 28px;
+  --fs-body:   16px; --lh-body:   24px;
+  --fs-small:  14px; --lh-small:  20px;
+  --fs-micro:  12px; --lh-micro:  16px;
+
+  /* ---------- 4. Space (4-pt) ---------- */
+  --s-1: 4px;  --s-2: 8px;  --s-3: 12px; --s-4: 16px; --s-5: 20px;
+  --s-6: 24px; --s-8: 32px; --s-10: 40px; --s-12: 48px; --s-16: 64px;
+  --s-20: 80px; --s-24: 96px;
+
+  /* ---------- 5. Radius / border / shadow ---------- */
+  --r-xs: 6px; --r-sm: 10px; --r-md: 14px; --r-card: 20px; --r-xl: 28px; --r-pill: 999px;
+  --bw: 2px;   /* chunky outline */
+  --shadow-1: 0 1px 2px rgba(43,26,14,.06), 0 2px 6px rgba(43,26,14,.05);
+  --shadow-2: 0 6px 20px rgba(43,26,14,.10), 0 1px 3px rgba(43,26,14,.06);
+  --shadow-3: 0 18px 40px rgba(43,26,14,.16);
+  --shadow-sticker: 3px 3px 0 var(--cocoa-900);
+
+  /* ---------- 6. Layout ---------- */
+  --frame: 1440px;
+  --container: 1280px;   /* 80px side margins */
+  --gutter: 24px;        /* 12 columns × 85.33px */
+  --section-gap: 64px;
+  --header-h: 80px;
+
+  /* ---------- 7. Motion (for devs; static in Figma) ---------- */
+  --ease-spring: cubic-bezier(.34,1.56,.64,1);
+  --dur-fast: 150ms; --dur-base: 220ms;
+}
+
+/* ---------- Midnight skin: 22:00–04:00 (wrap any subtree) ---------- */
+.theme-midnight {
+  --bg:            var(--night-950);
+  --surface:       var(--night-900);
+  --surface-sunk:  var(--night-800);
+  --surface-inverse: var(--night-ink);
+  --text:          var(--night-ink);
+  --text-muted:    var(--night-ink-2);
+  --text-faint:    #7E76A8;
+  --text-inverse:  var(--night-950);
+  --line:          var(--night-700);
+  --line-strong:   var(--night-ink);
+  --primary:       var(--volt-400);
+  --primary-soft:  #2A3315;
+  --primary-ink:   var(--volt-400);
+  --on-primary:    var(--night-950);
+  --secondary:     var(--violet-500);
+  --on-secondary:  var(--white);
+  --accent:        var(--pink-500);
+  --accent-soft:   #3A1530;
+  --on-accent:     var(--white);
+  --success:       var(--mint-400);
+  --success-soft:  #123829;
+  --warning:       var(--gold-400);
+  --warning-soft:  #3A2C10;
+  --focus:         var(--volt-400);
+  --shadow-1: 0 1px 0 rgba(255,255,255,.04), 0 4px 14px rgba(0,0,0,.35);
+  --shadow-2: 0 10px 28px rgba(0,0,0,.45);
+  --shadow-sticker: 3px 3px 0 var(--violet-500);
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* ---------- Base ---------- */
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  width: var(--frame);
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  -webkit-font-smoothing: antialiased;
+}
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+p { margin: 0; }
+h1, h2, h3, h4 { margin: 0; font-family: var(--font-display); color: var(--text); }
+.container { width: var(--container); margin: 0 auto; }
+.np { font-family: var(--font-body); font-weight: 700; }  /* Devanagari accent */
+
+/* Type utilities */
+.t-display-xl { font: 800 var(--fs-display-xl)/var(--lh-display-xl) var(--font-display); letter-spacing: -1px; }
+.t-display-l  { font: 800 var(--fs-display-l)/var(--lh-display-l) var(--font-display); letter-spacing: -.5px; }
+.t-h1 { font: 700 var(--fs-h1)/var(--lh-h1) var(--font-display); }
+.t-h2 { font: 700 var(--fs-h2)/var(--lh-h2) var(--font-display); }
+.t-h3 { font: 700 var(--fs-h3)/var(--lh-h3) var(--font-display); }
+.t-h4 { font: 700 var(--fs-h4)/var(--lh-h4) var(--font-display); }
+.t-body-l { font: 400 var(--fs-body-l)/var(--lh-body-l) var(--font-body); }
+.t-body   { font: 400 var(--fs-body)/var(--lh-body) var(--font-body); }
+.t-small  { font: 400 var(--fs-small)/var(--lh-small) var(--font-body); }
+.t-micro  { font: 600 var(--fs-micro)/var(--lh-micro) var(--font-body); letter-spacing: .3px; }
+.t-eyebrow { font: 700 13px/16px var(--font-body); letter-spacing: 1.4px; text-transform: uppercase; color: var(--primary-ink); }
+.t-muted { color: var(--text-muted); }
+
+/* Icons: inline SVG, 2px rounded stroke */
+.icon { width: 20px; height: 20px; flex: none; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.icon-sm { width: 16px; height: 16px; }
+.icon-lg { width: 24px; height: 24px; }
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  height: 48px; padding: 0 24px; border-radius: var(--r-pill);
+  font: 700 16px/1 var(--font-display); letter-spacing: .2px; white-space: nowrap;
+  border: var(--bw) solid transparent; cursor: pointer;
+}
+.btn-lg { height: 56px; padding: 0 32px; font-size: 18px; }
+.btn-sm { height: 36px; padding: 0 16px; font-size: 14px; }
+.btn-primary   { background: var(--primary); color: var(--on-primary); box-shadow: inset 0 -3px 0 rgba(0,0,0,.12); }
+.btn-secondary { background: var(--secondary); color: var(--on-secondary); }
+.btn-outline   { background: transparent; color: var(--text); border-color: var(--line-strong); }
+.btn-ghost     { background: transparent; color: var(--primary-ink); padding: 0 12px; }
+.btn-deal      { background: var(--accent); color: var(--on-accent); }
+.btn-whatsapp  { background: #25D366; color: #08361A; }
+.btn-disabled  { background: var(--surface-sunk); color: var(--text-faint); box-shadow: none; }
+.btn-block { width: 100%; }
+.btn-icon { width: 44px; height: 44px; padding: 0; border-radius: var(--r-pill); background: var(--surface); border: var(--bw) solid var(--line); color: var(--text); display: inline-flex; align-items: center; justify-content: center; }
+
+/* ---------- Inputs ---------- */
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field-label { font: 600 14px/20px var(--font-body); color: var(--text); }
+.field-help  { font: 400 13px/18px var(--font-body); color: var(--text-muted); }
+.field-error .field-help { color: var(--warning); }
+.input {
+  display: flex; align-items: center; gap: 10px;
+  height: 52px; padding: 0 16px; border-radius: var(--r-md);
+  background: var(--surface); border: var(--bw) solid var(--line);
+  font: 400 16px/24px var(--font-body); color: var(--text);
+}
+.input .placeholder { color: var(--text-faint); }
+.input.is-focus { border-color: var(--focus); box-shadow: 0 0 0 4px var(--primary-soft); }
+.field-error .input { border-color: var(--warning); }
+.input-prefix { font-weight: 700; color: var(--text-muted); padding-right: 10px; border-right: 1px solid var(--line); }
+.textarea { height: 88px; align-items: flex-start; padding-top: 12px; }
+
+.radio-card {
+  display: flex; align-items: center; gap: 14px; padding: 14px 16px;
+  border: var(--bw) solid var(--line); border-radius: var(--r-md); background: var(--surface);
+}
+.radio-card.is-selected { border-color: var(--primary); background: var(--primary-soft); }
+.radio-dot { width: 22px; height: 22px; border-radius: 50%; border: var(--bw) solid var(--text-faint); flex: none; display: flex; align-items: center; justify-content: center; }
+.radio-card.is-selected .radio-dot { border-color: var(--primary-ink); }
+.radio-card.is-selected .radio-dot::after { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--primary-ink); }
+.radio-body { flex: 1; display: flex; flex-direction: column; }
+.radio-title { font: 700 16px/22px var(--font-body); }
+.radio-sub { font: 400 13px/18px var(--font-body); color: var(--text-muted); }
+
+/* ---------- Chips, tags, badges ---------- */
+.chip {
+  display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px;
+  border-radius: var(--r-pill); border: var(--bw) solid var(--line);
+  background: var(--surface); color: var(--text);
+  font: 600 14px/1 var(--font-body); white-space: nowrap;
+}
+.chip-selected { background: var(--secondary); border-color: var(--secondary); color: var(--on-secondary); }
+.chip-eta     { background: var(--success-soft); border-color: transparent; color: var(--success); }
+.chip-eta .live-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--success); box-shadow: 0 0 0 3px rgba(31,157,85,.18); }
+.chip-cooking { background: var(--warning-soft); border-color: transparent; color: var(--warning); }
+.chip-fresh   { background: var(--success-soft); border-color: transparent; color: var(--success); }
+.chip-age {     /* calm, not alarming */
+  background: var(--surface-sunk); border-color: var(--line); color: var(--text-muted); height: 26px; padding: 0 10px; font-size: 12px;
+}
+.chip-age b { color: var(--text); }
+.tag-deal {     /* sticker-blob discount tag, deals ONLY */
+  display: inline-flex; align-items: center; height: 26px; padding: 0 10px;
+  background: var(--accent); color: var(--on-accent);
+  border-radius: 13px 13px 13px 4px; font: 800 13px/1 var(--font-display); letter-spacing: .2px;
+}
+.tag-sticker {  /* "Bestseller", "Ramro choice" */
+  display: inline-flex; align-items: center; gap: 4px; height: 26px; padding: 0 10px;
+  background: var(--primary); color: var(--on-primary); border: var(--bw) solid var(--cocoa-900);
+  border-radius: var(--r-pill); font: 800 12px/1 var(--font-display); box-shadow: 2px 2px 0 var(--cocoa-900);
+}
+.theme-midnight .tag-sticker { border-color: var(--night-950); box-shadow: 2px 2px 0 var(--violet-500); }
+.veg-mark, .nonveg-mark { width: 16px; height: 16px; border: 1.5px solid; border-radius: 3px; display: inline-flex; align-items: center; justify-content: center; flex: none; }
+.veg-mark { border-color: #1F9D55; } .veg-mark::after { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #1F9D55; }
+.nonveg-mark { border-color: #B3261E; } .nonveg-mark::after { content: ""; width: 0; height: 0; border-left: 4px solid transparent; border-right: 4px solid transparent; border-bottom: 7px solid #B3261E; }
+.count-badge { min-width: 22px; height: 22px; padding: 0 6px; border-radius: 11px; background: var(--accent); color: #fff; font: 800 12px/22px var(--font-display); text-align: center; border: 2px solid var(--surface); }
+
+/* Spice meter */
+.spice { display: inline-flex; align-items: center; gap: 3px; font: 600 12px/1 var(--font-body); color: var(--text-muted); }
+.spice i { width: 8px; height: 14px; border-radius: 4px 4px 6px 6px; background: var(--line); display: inline-block; }
+.spice i.on { background: #E5482B; }
+.spice span { margin-left: 4px; }
+
+/* ---------- Qty stepper ---------- */
+.stepper {
+  display: inline-flex; align-items: center; justify-content: space-between;
+  height: 40px; min-width: 112px; padding: 0 4px; border-radius: var(--r-pill);
+  background: var(--primary); color: var(--on-primary);
+}
+.stepper button { width: 32px; height: 32px; border: 0; border-radius: 50%; background: rgba(255,255,255,.35); color: inherit; display: flex; align-items: center; justify-content: center; padding: 0; }
+.theme-midnight .stepper button { background: rgba(14,11,31,.14); }
+.stepper .qty { font: 800 16px/1 var(--font-display); min-width: 28px; text-align: center; }
+.stepper-lg { height: 52px; min-width: 148px; }
+.stepper-lg button { width: 42px; height: 42px; }
+.btn-add {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  height: 40px; min-width: 112px; padding: 0 16px; border-radius: var(--r-pill);
+  background: var(--surface); color: var(--primary-ink); border: var(--bw) solid var(--primary);
+  font: 800 15px/1 var(--font-display);
+}
+
+/* ---------- Product card (grocery) ---------- */
+.product-card {
+  width: 232px; display: flex; flex-direction: column;
+  background: var(--surface); border-radius: var(--r-card); border: 1px solid var(--line);
+  box-shadow: var(--shadow-1); overflow: hidden;
+}
+.product-media { position: relative; height: 188px; margin: 8px 8px 0; border-radius: 14px; background: var(--surface-sunk); display: flex; align-items: center; justify-content: center; }
+.theme-midnight .product-media { background: radial-gradient(circle at 50% 60%, #2E2560 0%, var(--night-800) 70%); }
+.product-media img { height: 148px; width: 170px; object-fit: contain; }
+.product-media .tag-deal { position: absolute; top: 10px; left: 10px; }
+.product-media .fav { position: absolute; top: 10px; right: 10px; width: 32px; height: 32px; border-radius: 50%; background: var(--surface); color: var(--text-muted); display: flex; align-items: center; justify-content: center; }
+.product-body { padding: 12px 16px 16px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+.product-eta { display: flex; align-items: center; gap: 4px; font: 600 12px/16px var(--font-body); color: var(--success); }
+.product-name { font: 600 16px/21px var(--font-body); color: var(--text); height: 42px; overflow: hidden; }
+.product-size { font: 400 13px/18px var(--font-body); color: var(--text-muted); }
+.product-foot { display: flex; align-items: center; justify-content: space-between; margin-top: 6px; }
+.price { display: flex; flex-direction: column; }
+.price-now { font: 800 18px/22px var(--font-display); color: var(--text); }
+.price-was { font: 400 13px/16px var(--font-body); color: var(--text-faint); text-decoration: line-through; }
+.product-foot .btn-add, .product-foot .stepper { min-width: 96px; height: 38px; }
+
+/* ---------- Meal card (cloud kitchen) ---------- */
+.meal-card {
+  width: 296px; display: flex; flex-direction: column;
+  background: var(--surface); border-radius: var(--r-card); border: 1px solid var(--line);
+  box-shadow: var(--shadow-1); overflow: hidden;
+}
+.meal-media { position: relative; height: 200px; background: radial-gradient(circle at 50% 55%, #FFE2A6 0%, #FBD07A 45%, #F3B04A 100%); display: flex; align-items: center; justify-content: center; }
+.theme-midnight .meal-media { background: radial-gradient(circle at 50% 55%, #3B2E7A 0%, #241C4D 55%, var(--night-900) 100%); }
+.meal-media img { width: 210px; height: 180px; object-fit: contain; }
+.meal-media .chip-cooking { position: absolute; left: 12px; bottom: 12px; height: 28px; background: var(--surface); box-shadow: var(--shadow-1); }
+.meal-media .tag-deal { position: absolute; top: 12px; left: 12px; }
+.meal-body { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 8px; }
+.meal-title-row { display: flex; align-items: center; gap: 8px; }
+.meal-name { font: 700 19px/24px var(--font-display); color: var(--text); }
+.meal-desc { font: 400 14px/20px var(--font-body); color: var(--text-muted); height: 40px; overflow: hidden; }
+.meal-meta { display: flex; align-items: center; gap: 12px; font: 600 13px/18px var(--font-body); color: var(--text-muted); }
+.meal-meta .dot { width: 4px; height: 4px; border-radius: 50%; background: var(--text-faint); }
+.meal-foot { display: flex; align-items: center; justify-content: space-between; margin-top: 4px; padding-top: 12px; border-top: 1px dashed var(--line); }
+
+/* ---------- Trust rail ---------- */
+.trust-rail {
+  display: flex; align-items: stretch; gap: 0;
+  background: var(--surface); border: var(--bw) solid var(--line); border-radius: var(--r-card); overflow: hidden;
+}
+.trust-item { flex: 1; display: flex; gap: 12px; align-items: flex-start; padding: 18px 20px; border-right: 1px solid var(--line); }
+.trust-item:last-child { border-right: 0; }
+.trust-item.is-lead { background: var(--primary-soft); flex: 1.2; }
+.trust-icon { width: 40px; height: 40px; border-radius: 12px; background: var(--surface-sunk); color: var(--primary-ink); display: flex; align-items: center; justify-content: center; flex: none; }
+.trust-item.is-lead .trust-icon { background: var(--primary); color: var(--on-primary); }
+.trust-title { font: 700 15px/20px var(--font-body); color: var(--text); }
+.trust-sub { font: 400 13px/18px var(--font-body); color: var(--text-muted); }
+.pay-pill { display: inline-flex; align-items: center; height: 24px; padding: 0 9px; border-radius: 6px; font: 800 12px/1 var(--font-body); margin-top: 6px; margin-right: 4px; }
+.pay-cod    { background: var(--cocoa-900); color: var(--amber-300); }
+.pay-esewa  { background: #60BB46; color: #fff; }
+.pay-khalti { background: #5C2D91; color: #fff; }
+.pay-fonepay{ background: #C8102E; color: #fff; }
+.legal-line { font: 400 12px/16px var(--font-body); color: var(--text-muted); }
+
+/* ---------- Free-delivery progress ---------- */
+.progress { display: flex; flex-direction: column; gap: 8px; }
+.progress-track { height: 10px; border-radius: 5px; background: var(--surface-sunk); overflow: hidden; }
+.progress-fill { height: 10px; border-radius: 5px; background: var(--primary); }
+
+/* ---------- Toasts ---------- */
+.toast {
+  width: 420px; display: flex; align-items: center; gap: 12px; padding: 14px 16px;
+  border-radius: var(--r-md); background: var(--surface-inverse); color: var(--text-inverse);
+  box-shadow: var(--shadow-3);
+}
+.toast-icon { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex: none; }
+.toast-body { flex: 1; display: flex; flex-direction: column; }
+.toast-title { font: 700 15px/20px var(--font-body); }
+.toast-sub { font: 400 13px/18px var(--font-body); opacity: .8; }
+.toast-action { font: 800 14px/1 var(--font-display); color: var(--amber-300); white-space: nowrap; }
+.theme-midnight .toast-action { color: var(--violet-500); }
+.toast-success .toast-icon { background: var(--green-600); color: #fff; }
+.toast-info .toast-icon { background: var(--primary); color: var(--on-primary); }
+.toast-warning .toast-icon { background: #F97316; color: #fff; }
+.toast-error .toast-icon { background: var(--pink-500); color: #fff; }
+
+/* ---------- Section header ---------- */
+.section { padding: var(--section-gap) 0 0; }
+.section-head { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 24px; }
+.section-head .np-kicker { font: 700 15px/20px var(--font-body); color: var(--primary-ink); }
+.section-head h2 { font: 800 32px/38px var(--font-display); }
+.see-all { display: inline-flex; align-items: center; gap: 4px; font: 700 15px/1 var(--font-display); color: var(--primary-ink); }
+
+/* =====================================================================
+   HEADER
+   ===================================================================== */
+.site-header { width: 100%; background: var(--surface); border-bottom: 1px solid var(--line); }
+.header-strip { background: var(--surface-inverse); color: var(--text-inverse); }
+.header-strip .container { height: 36px; display: flex; align-items: center; justify-content: space-between; font: 500 13px/1 var(--font-body); }
+.header-strip .strip-group { display: flex; align-items: center; gap: 20px; }
+.header-strip .strip-item { display: inline-flex; align-items: center; gap: 6px; }
+.header-strip b { color: var(--amber-300); font-weight: 700; }
+.theme-midnight .header-strip b { color: var(--violet-500); }
+.header-main .container { height: var(--header-h); display: flex; align-items: center; gap: 20px; }
+.logo { display: flex; align-items: center; flex: none; }
+.logo img { height: 60px; width: auto; }
+/* Header uses the site's GreenLogoTransaprant.svg (1080² canvas with wide padding): negative margins crop the padding in normal flow */
+.site-header .logo img { width: 80px; height: 80px; max-width: none; margin: -12px -18px; }
+.theme-midnight .site-header .logo { background: var(--cream-50); border-radius: 14px; padding: 4px 8px; }
+.logo-tile { background: var(--cream-50); border-radius: 14px; padding: 4px 10px; }  /* used on dark (Midnight/footer): logo has dark wordmark */
+.location-chip {
+  display: flex; align-items: center; gap: 10px; height: 52px; padding: 0 14px 0 10px;
+  border-radius: var(--r-md); background: var(--primary-soft); flex: none; max-width: 270px;
+}
+.location-chip .pin { width: 34px; height: 34px; border-radius: 10px; background: var(--primary); color: var(--on-primary); display: flex; align-items: center; justify-content: center; flex: none; }
+.location-chip .loc-text { display: flex; flex-direction: column; min-width: 0; }
+.location-chip .loc-eta { font: 800 15px/18px var(--font-display); color: var(--text); white-space: nowrap; }
+.location-chip .loc-place { font: 500 13px/17px var(--font-body); color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.location-chip .chev { color: var(--text-muted); }
+.search {
+  flex: 1; display: flex; align-items: center; gap: 12px; height: 52px; padding: 0 8px 0 18px;
+  border-radius: var(--r-pill); background: var(--surface-sunk); border: var(--bw) solid var(--line);
+}
+.search .icon { color: var(--text-muted); }
+.search-hint { flex: 1; font: 400 16px/1 var(--font-body); color: var(--text-faint); white-space: nowrap; overflow: hidden; }
+.search-hint b { color: var(--text-muted); font-weight: 600; }
+.search-kbd { height: 36px; padding: 0 14px; border-radius: var(--r-pill); background: var(--secondary); color: var(--on-secondary); display: inline-flex; align-items: center; font: 700 14px/1 var(--font-display); }
+.header-actions { display: flex; align-items: center; gap: 8px; flex: none; }
+.account-btn { display: flex; align-items: center; gap: 10px; height: 52px; padding: 0 12px; border-radius: var(--r-md); }
+.account-btn .avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--surface-sunk); color: var(--text); display: flex; align-items: center; justify-content: center; }
+.account-btn .acc-text { display: flex; flex-direction: column; }
+.account-btn .acc-hi { font: 500 12px/15px var(--font-body); color: var(--text-muted); }
+.account-btn .acc-cta { font: 700 15px/18px var(--font-display); color: var(--text); }
+.cart-btn {
+  display: flex; align-items: center; gap: 10px; height: 52px; padding: 0 18px 0 14px;
+  border-radius: var(--r-pill); background: var(--primary); color: var(--on-primary);
+  box-shadow: inset 0 -3px 0 rgba(0,0,0,.12);
+}
+.cart-btn .cart-ico { position: relative; display: flex; }
+.cart-btn .count-badge { position: absolute; top: -10px; right: -12px; border-color: var(--primary); }
+.cart-btn .cart-text { display: flex; flex-direction: column; margin-left: 10px; }
+.cart-btn .cart-label { font: 600 12px/14px var(--font-body); opacity: .85; }
+.cart-btn .cart-total { font: 800 16px/19px var(--font-display); }
+.header-nav { border-top: 1px solid var(--line); }
+.header-nav .container { height: 48px; display: flex; align-items: center; justify-content: space-between; }
+.nav-links { display: flex; align-items: center; gap: 4px; }
+.nav-link { display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 12px; border-radius: var(--r-pill); font: 600 15px/1 var(--font-body); color: var(--text); white-space: nowrap; }
+.nav-link.is-active { background: var(--secondary); color: var(--on-secondary); }
+.nav-link .chip-age { height: 20px; padding: 0 6px; font-size: 11px; border-width: 1px; }
+.nav-midnight { display: inline-flex; align-items: center; gap: 8px; height: 34px; padding: 0 14px; border-radius: var(--r-pill); background: var(--night-950); color: var(--volt-400); font: 700 14px/1 var(--font-display); white-space: nowrap; }
+.theme-midnight .nav-midnight { background: var(--volt-400); color: var(--night-950); }
+
+/* =====================================================================
+   FOOTER
+   ===================================================================== */
+.site-footer { width: 100%; background: var(--cocoa-900); color: #EADCC6; margin-top: var(--s-24); }
+.theme-midnight .site-footer, .theme-midnight.site-footer { background: #08061A; }
+.footer-promise .container { display: flex; gap: 16px; padding: 40px 0 0; }
+.promise { flex: 1; display: flex; align-items: center; gap: 14px; padding: 18px 20px; border-radius: var(--r-card); background: rgba(255,248,236,.06); border: 1px solid rgba(255,248,236,.10); }
+.promise .p-ico { width: 44px; height: 44px; border-radius: 14px; background: var(--amber-500); color: var(--cocoa-900); display: flex; align-items: center; justify-content: center; flex: none; }
+.theme-midnight .promise .p-ico { background: var(--volt-400); color: var(--night-950); }
+.promise .p-title { font: 700 16px/20px var(--font-display); color: #FFF8EC; }
+.promise .p-sub { font: 400 13px/18px var(--font-body); color: #CDBBA1; }
+.theme-midnight .promise .p-sub { color: var(--night-ink-2); }
+.footer-main .container { display: grid; grid-template-columns: 340px 1fr 1fr 1fr 260px; gap: 40px; padding: 48px 0 40px; }
+.footer-brand { display: flex; flex-direction: column; gap: 16px; align-items: flex-start; }
+.footer-brand .logo img { height: 64px; }
+.footer-tagline { font: 400 15px/23px var(--font-body); color: #D9C7AC; }
+.footer-tagline .np { color: var(--amber-300); }
+.theme-midnight .footer-tagline, .theme-midnight .footer-col a { color: var(--night-ink-2); }
+.footer-col { display: flex; flex-direction: column; gap: 12px; }
+.footer-col h4 { font: 700 15px/20px var(--font-display); color: #FFF8EC; margin-bottom: 4px; }
+.footer-col a { font: 400 15px/20px var(--font-body); color: #D9C7AC; }
+.footer-col .wa { display: inline-flex; align-items: center; gap: 8px; color: #7EE2A0; font-weight: 700; }
+.app-badge { display: flex; align-items: center; gap: 10px; height: 52px; padding: 0 16px; border-radius: 12px; background: #120A04; border: 1px solid rgba(255,248,236,.18); color: #FFF8EC; }
+.theme-midnight .app-badge { background: var(--night-900); border-color: var(--night-700); }
+.app-badge small { display: block; font: 400 11px/13px var(--font-body); color: #CDBBA1; }
+.app-badge strong { display: block; font: 700 16px/19px var(--font-display); }
+.footer-legal { border-top: 1px solid rgba(255,248,236,.12); }
+.footer-legal .container { display: flex; align-items: center; justify-content: space-between; padding: 20px 0 28px; gap: 24px; }
+.footer-legal .legal-text { font: 400 13px/19px var(--font-body); color: #BFAE95; }
+.theme-midnight .footer-legal .legal-text { color: var(--night-ink-2); }
+.footer-legal .pays { display: flex; align-items: center; gap: 6px; flex: none; }
+.footer-legal .pays .pay-pill { margin: 0; }
+.theme-midnight .header-strip { background: #08061A; color: var(--night-ink); }
+</style>
+<style>
+/* ===== Page-only CSS (02-about) — tokens only ===== */
+.grid-products { display: grid; grid-template-columns: repeat(5, 232px); justify-content: space-between; row-gap: var(--s-8); }
+.grid-meals { display: grid; grid-template-columns: repeat(4, 296px); justify-content: space-between; }
+.product-sticker { align-self: flex-start; }
+.price-none { text-decoration: none; }
+.product-eta .chip-age { height: 22px; }
+.trust-legal { display: flex; align-items: center; gap: 6px; margin-top: var(--s-3); }
+.section-sub { font: 400 var(--fs-body)/var(--lh-body) var(--font-body); color: var(--text-muted); margin-top: var(--s-1); }
+.head-right { display: flex; align-items: center; gap: var(--s-4); }
+.placeholder-note { display: inline-flex; align-items: center; gap: 6px; height: 22px; padding: 0 8px; border-radius: var(--r-xs); background: var(--surface-sunk); border: 1px dashed var(--text-faint); color: var(--text-muted); font: 600 11px/1 var(--font-body); letter-spacing: .3px; text-transform: uppercase; white-space: nowrap; }
+
+
+.about-hero { display: grid; grid-template-columns: 1fr 520px; gap: var(--s-12); align-items: center; padding-top: var(--s-12); }
+.about-hero .copy { display: flex; flex-direction: column; gap: var(--s-5); }
+.about-hero .np-kicker { font: 700 18px/24px var(--font-body); color: var(--primary-ink); }
+.about-hero .t-body-l { color: var(--text-muted); }
+.about-hero .facts { display: flex; gap: var(--s-2); flex-wrap: wrap; }
+.hero-collage { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-4); }
+.hero-collage .tall { grid-row: span 2; }
+.k-tile { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--s-2); height: 180px; border-radius: var(--r-card); background: radial-gradient(circle at 50% 45%, #FFE2A6 0%, #FBD07A 50%, #F3B04A 100%); border: var(--bw) solid var(--cocoa-900); box-shadow: var(--shadow-sticker); }
+.k-tile img { width: 150px; height: 120px; object-fit: contain; }
+.hero-collage .tall.k-tile { height: 376px; }
+.hero-collage .tall img { width: 220px; height: 260px; }
+.k-name { font: 700 14px/18px var(--font-display); color: var(--cocoa-900); background: var(--cream-50); padding: 4px 10px; border-radius: var(--r-pill); }
+.sorted { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s-6); }
+.sorted-card { display: flex; flex-direction: column; gap: var(--s-3); padding: var(--s-6); border-radius: var(--r-card); background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow-1); }
+.sorted-card .oh { font: 600 15px/20px var(--font-body); color: var(--text-muted); }
+.sorted-card .oh b { color: var(--text); }
+.sorted-card .arrow { display: flex; align-items: center; gap: var(--s-2); color: var(--primary-ink); font: 700 14px/18px var(--font-body); }
+.sorted-card h3 { font: 700 22px/28px var(--font-display); }
+.sorted-card .chip { align-self: flex-start; }
+.promise-line { margin-top: var(--s-6); padding: var(--s-5) var(--s-6); border-radius: var(--r-card); background: var(--secondary); color: var(--on-secondary); display: flex; align-items: center; justify-content: space-between; gap: var(--s-6); }
+.promise-line p { font: 700 20px/28px var(--font-display); }
+.promise-line p b { color: var(--amber-300); }
+.steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s-6); }
+.step { display: flex; flex-direction: column; gap: var(--s-3); padding: var(--s-6); border-radius: var(--r-card); background: var(--primary-soft); border: var(--bw) solid var(--amber-100); }
+.step-top { display: flex; align-items: center; justify-content: space-between; }
+.step-num { width: 48px; height: 48px; border-radius: 50%; background: var(--primary); color: var(--on-primary); border: var(--bw) solid var(--cocoa-900); box-shadow: 2px 2px 0 var(--cocoa-900); display: flex; align-items: center; justify-content: center; font: 800 22px/1 var(--font-display); }
+.step-ico { width: 52px; height: 52px; border-radius: 16px; background: var(--surface); color: var(--primary-ink); display: flex; align-items: center; justify-content: center; }
+.step h3 { font: 700 22px/28px var(--font-display); }
+.step p { color: var(--text-muted); }
+.kitchen { display: grid; grid-template-columns: 560px 1fr; gap: var(--s-12); align-items: center; padding: var(--s-10); border-radius: var(--r-xl); background: var(--surface-sunk); }
+.kitchen-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-4); }
+.kitchen .copy { display: flex; flex-direction: column; gap: var(--s-4); }
+.kitchen .copy h2 { font: 800 32px/38px var(--font-display); }
+.kitchen .copy p { color: var(--text-muted); font-size: 17px; line-height: 26px; }
+.check-list { display: flex; flex-direction: column; gap: var(--s-3); margin: 0; padding: 0; list-style: none; }
+.check-list li { display: flex; align-items: center; gap: var(--s-3); font: 600 16px/22px var(--font-body); }
+.check-list .ck { width: 28px; height: 28px; border-radius: 50%; background: var(--success-soft); color: var(--success); display: flex; align-items: center; justify-content: center; flex: none; }
+.area { display: grid; grid-template-columns: 520px 1fr; gap: var(--s-10); align-items: stretch; }
+.map { height: 440px; border-radius: var(--r-xl); background: var(--surface-sunk); border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; overflow: hidden;
+  background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px); background-size: 40px 40px; }
+.ring { border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+.ring.r4 { width: 400px; height: 400px; background: rgba(249,156,0,.08); border: 2px dashed var(--amber-300); }
+.ring.r3 { width: 300px; height: 300px; background: rgba(249,156,0,.14); }
+.ring.r2 { width: 200px; height: 200px; background: rgba(249,156,0,.24); }
+.ring.r1 { width: 104px; height: 104px; background: var(--primary); border: var(--bw) solid var(--cocoa-900); box-shadow: var(--shadow-sticker); flex-direction: column; color: var(--on-primary); font: 800 13px/16px var(--font-display); text-align: center; }
+.zone-list { display: flex; flex-direction: column; gap: var(--s-3); }
+.zone { display: flex; align-items: center; gap: var(--s-4); padding: var(--s-4) var(--s-5); border-radius: var(--r-md); background: var(--surface); border: 1px solid var(--line); }
+.zone .sw { width: 18px; height: 18px; border-radius: 50%; flex: none; border: 1px solid var(--line); }
+.zone .z1 { background: var(--primary); } .zone .z2 { background: rgba(249,156,0,.45); } .zone .z3 { background: rgba(249,156,0,.22); } .zone .z4 { background: var(--surface); border: 2px dashed var(--amber-300); }
+.zone .zn { flex: 1; display: flex; flex-direction: column; }
+.zone .zn b { font: 700 16px/22px var(--font-body); }
+.zone .zn span { font: 400 13px/18px var(--font-body); color: var(--text-muted); }
+.zone-foot { display: flex; align-items: center; justify-content: space-between; margin-top: var(--s-2); }
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--s-6); }
+.stat { display: flex; flex-direction: column; gap: var(--s-2); padding: var(--s-6); border-radius: var(--r-card); background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow-1); }
+.stat .num { font: 800 44px/48px var(--font-display); color: var(--text); }
+.stat .lbl { font: 600 16px/22px var(--font-body); }
+.stat .sub { font: 400 14px/20px var(--font-body); color: var(--text-muted); }
+.stat .placeholder-note { align-self: flex-start; }
+.company { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-6); margin-top: var(--s-6); }
+.company-card { padding: var(--s-6); border-radius: var(--r-card); background: var(--surface); border: 1px solid var(--line); display: grid; grid-template-columns: 160px 1fr; row-gap: var(--s-3); font-size: 15px; }
+.company-card dt { color: var(--text-muted); } .company-card dd { margin: 0; font-weight: 600; }
+.contact { display: flex; align-items: center; gap: var(--s-10); padding: var(--s-10); border-radius: var(--r-xl); background: var(--secondary); color: var(--on-secondary); }
+.contact .copy { flex: 1; display: flex; flex-direction: column; gap: var(--s-3); }
+.contact .np-kicker { color: var(--amber-300); font: 700 16px/20px var(--font-body); }
+.contact h2 { color: var(--on-secondary); font: 800 36px/42px var(--font-display); }
+.contact p { color: #D9C7AC; font-size: 17px; line-height: 26px; }
+.contact-actions { display: flex; flex-direction: column; gap: var(--s-3); width: 360px; }
+.contact-row { display: flex; align-items: center; gap: var(--s-3); padding: var(--s-3) var(--s-4); border-radius: var(--r-md); background: rgba(255,248,236,.08); font: 600 15px/20px var(--font-body); color: #FFF8EC; }
+.contact-row small { display: block; font: 400 12px/16px var(--font-body); color: #CDBBA1; }
+
+</style>
+</head>
+<body>
+<!-- ===================== HEADER (copy verbatim) ===================== -->
+<header class="site-header">
+  <div class="header-strip">
+    <div class="container">
+      <div class="strip-group">
+        <span class="strip-item"><svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> Open <b>24×7</b> across Kathmandu Valley</span>
+        <span class="strip-item"><svg class="icon icon-sm" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/></svg> <b>Cash on delivery</b> · eSewa · Khalti</span>
+        <span class="strip-item"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6"/></svg> VAT bill with your PAN</span>
+      </div>
+      <div class="strip-group">
+        <span class="strip-item"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M4 20l1.4-4A8 8 0 1 1 8.3 18.7z"/></svg> Help? WhatsApp <b>+977 971-2023010</b></span>
+        <span class="strip-item">🎡 Spin &amp; Win</span>
+        <span class="strip-item">📱 Get the app</span>
+      </div>
+    </div>
+  </div>
+  <div class="header-main">
+    <div class="container">
+      <a class="logo" href="#"><img src="https://www.shopitnepal.com/logo/svg/GreenLogoTransaprant.svg" alt="ShopIt"></a>
+      <div class="location-chip">
+        <span class="pin"><svg class="icon" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span>
+        <span class="loc-text">
+          <span class="loc-eta">Delivery in 8–14 min</span>
+          <span class="loc-place">Sitapaila, Nagarjun-4</span>
+        </span>
+        <svg class="icon icon-sm chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+      <div class="search">
+        <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <span class="search-hint">Ke chahiyo aaja? Try <b>“chicken momo”</b> · 1,500+ items</span>
+        <span class="search-kbd">Search</span>
+      </div>
+      <div class="header-actions">
+        <a class="account-btn" href="#">
+          <span class="avatar"><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg></span>
+          <span class="acc-text"><span class="acc-hi">Namaste 🙏</span><span class="acc-cta">Sign in</span></span>
+        </a>
+        <a class="cart-btn" href="#">
+          <span class="cart-ico"><svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span class="count-badge">3</span></span>
+          <span class="cart-text"><span class="cart-label">My cart</span><span class="cart-total">Rs. 1,245</span></span>
+        </a>
+      </div>
+    </div>
+  </div>
+  <nav class="header-nav">
+    <div class="container">
+      <div class="nav-links">
+        <a class="nav-link is-active" href="#"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg> All categories</a>
+        <a class="nav-link" href="#">🍜 Cloud Kitchen</a>
+        <a class="nav-link" href="#">Daily Groceries</a>
+        <a class="nav-link" href="#">Snacks</a>
+        <a class="nav-link" href="#">Chocolates</a>
+        <a class="nav-link" href="#">Soft Drinks</a>
+        <a class="nav-link" href="#">Baby Products</a>
+        <a class="nav-link" href="#">Liquors <span class="chip chip-age"><b>18+</b></span></a>
+      </div>
+      <a class="nav-midnight" href="#"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg> Midnight Cravings</a>
+    </div>
+  </nav>
+</header>
+<!-- =================== /HEADER =================== -->
+
+<main>
+<div class="container">
+  <section class="about-hero">
+    <div class="copy">
+      <div class="np-kicker">हामी को हौं? · Hami ko hau?</div>
+      <h1 class="t-display-xl">Your corner shop, now at app speed.</h1>
+      <p class="t-body-l">ShopIt is a Kathmandu team in Sitapaila running a 24×7 grocery store and our own cloud kitchen in Sitapaila. Run out of milk, have guests turn up or get hungry at 1am, and we bring it to your door in minutes. Cash at the door is fine.</p>
+      <div class="facts">
+        <span class="chip chip-eta"><span class="live-dot"></span> Delivering now · 8–14 min nearby</span>
+        <span class="chip">🏪 1,500+ items</span>
+        <span class="chip">🥟 Own cloud kitchen</span>
+        <span class="chip">🕐 Open 24×7</span>
+      </div>
+      <div class="hero-ctas" style="display:flex;gap:var(--s-3);margin-top:var(--s-2)"><a class="btn btn-primary btn-lg" href="#">Start shopping</a><a class="btn btn-whatsapp btn-lg" href="#"><svg class="icon" viewBox="0 0 24 24"><path d="M4 20l1.4-4A8 8 0 1 1 8.3 18.7z"/></svg> WhatsApp us</a></div>
+    </div>
+    <div class="hero-collage">
+      <span class="k-tile tall"><img src="https://www.shopitnepal.com/files/uploads/image/94ad6f3b-72f5-4b93-9b0c-697f6bb638f4-s249nobg.png" alt="Chicken Steam Momo"><span class="k-name">Chicken Steam Momo</span></span>
+      <span class="k-tile"><img src="https://www.shopitnepal.com/files/uploads/image/880d0cb9-0d77-4229-8695-91e64a399255-s249nobg.png" alt="Buff Choila"><span class="k-name">Buff Choila</span></span>
+      <span class="k-tile"><img src="https://www.shopitnepal.com/files/uploads/image/ff229b1b-6de3-49cd-a8be-c2f8181c76b6-s249nobg.png" alt="Paneer Biryani"><span class="k-name">Paneer Biryani</span></span>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="np-kicker">"Oh no" → "done"</div><h2>We don’t sell groceries. We sell sorted.</h2></div></div>
+    <div class="sorted">
+      <div class="sorted-card"><span class="oh">7:10am · <b>“Dudh sakkiyo!”</b> The milk ran out before tea.</span><span class="arrow"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg> sorted</span><h3>Milk, bread and eggs at the door before the chiya boils.</h3><span class="chip chip-eta"><span class="live-dot"></span> 8–14 min</span></div>
+      <div class="sorted-card"><span class="oh">6:30pm · <b>“Guests are coming!”</b> Snacks for six, right now.</span><span class="arrow"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg> sorted</span><h3>Chiura, choila, cold drinks and a tray of momo, all on one rider.</h3><span class="chip chip-cooking"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M3 11h14a0 0 0 0 1 0 0 7 7 0 0 1-14 0z"/><path d="M17 11h4"/><path d="M8 7c0-1 1-1.5 1-2.5M12 7c0-1 1-1.5 1-2.5"/></svg> Kitchen 20–30 min</span></div>
+      <div class="sorted-card"><span class="oh">1:20am · <b>“Bhok lagyo.”</b> Everything else is closed.</span><span class="arrow"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg> sorted</span><h3>Hot momo and a Coke Zero. Midnight mode means we're still awake.</h3><span class="chip">🌙 Midnight mode, 10pm–4am</span></div>
+    </div>
+    <div class="promise-line"><p>Our promise: an <b>honest ETA range</b>, <b>no hidden fees</b> and a real human on WhatsApp if anything goes wrong.</p><a class="btn btn-primary" href="#">Read our promise</a></div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="np-kicker">कसरी? · Kasari?</div><h2>How it works, in 3 steps</h2></div></div>
+    <div class="steps">
+      <div class="step"><div class="step-top"><span class="step-num">1</span><span class="step-ico"><svg class="icon icon-lg" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></span></div><h3>Search or tap your usual</h3><p>Find any of the 1,500+ items, or reorder last week's basket in one tap. We confirm your landmark once.</p></div>
+      <div class="step"><div class="step-top"><span class="step-num">2</span><span class="step-ico"><svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg></span></div><h3>We pack it, or cook it</h3><p>Groceries are picked and checked for expiry in Sitapaila. Kitchen orders are cooked fresh, never reheated.</p></div>
+      <div class="step"><div class="step-top"><span class="step-num">3</span><span class="step-ico"><svg class="icon icon-lg" viewBox="0 0 24 24"><circle cx="6" cy="17" r="3"/><circle cx="18" cy="17" r="3"/><path d="M9 17h6l2-7h-4M5 11h5l2 6"/><path d="M15 6h3"/></svg></span></div><h3>A rider brings it. Pay at the door.</h3><p>Watch the live stage: Packed → On the way → Near your landmark. Pay in cash, eSewa or Khalti.</p></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="kitchen">
+      <div class="kitchen-grid"><span class="k-tile"><img src="https://www.shopitnepal.com/files/uploads/image/49ad5328-46c1-4285-ad11-3c54ae085e3d-s249nobg.png" alt="Chicken Timur Sadheko"><span class="k-name">Chicken Timur Sadheko</span></span><span class="k-tile"><img src="https://www.shopitnepal.com/files/uploads/image/6a24344e-bb76-448a-8b9f-f38f44127c02-s249nobg.png" alt="Chicken Fried Momo"><span class="k-name">Chicken Fried Momo</span></span><span class="k-tile"><img src="https://www.shopitnepal.com/files/uploads/image/XQTqKEimages-removeb.webp" alt="Paneer Momo"><span class="k-name">Paneer Momo</span></span><span class="k-tile"><img src="https://www.shopitnepal.com/files/uploads/image/56bc2fa0-54cb-48fd-a22b-715b3e229f0b-s249nobg.png" alt="Mix Fried Rice"><span class="k-name">Mix Fried Rice</span></span></div>
+      <div class="copy">
+        <div class="np-kicker" style="font:700 15px/20px var(--font-body);color:var(--primary-ink)">हाम्रो भान्सा · Hamro bhansa</div>
+        <h2>Our own kitchen, in Sitapaila</h2>
+        <p>The ShopIt cloud kitchen in Sitapaila cooks Kathmandu favourites to order: momo, choila, sadheko and biryani. Because it shares a rider with the store, your dinner and your milk arrive together.</p>
+        <ul class="check-list">
+          <li><span class="ck"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg></span> Cooked to order, packed hot and sealed</li>
+          <li><span class="ck"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg></span> Spice level and portion shown on every dish</li>
+          <li><span class="ck"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg></span> Daily hygiene checklist <span class="placeholder-note">To confirm</span></li>
+        </ul>
+        <div><a class="btn btn-secondary" href="#">See today's menu</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="np-kicker">कहाँ सम्म? · Kaha samma?</div><h2>Where we deliver</h2></div><span class="placeholder-note">Zones and times are placeholders. Confirm with ShopIt.</span></div>
+    <div class="area">
+      <div class="map"><div class="ring r4"><div class="ring r3"><div class="ring r2"><div class="ring r1">ShopIt<br>Sitapaila</div></div></div></div></div>
+      <div class="zone-list">
+        <div class="zone"><span class="sw z1"></span><span class="zn"><b>Sitapaila, Nagarjun-4</b><span>Home base · kitchen + store</span></span><span class="chip chip-eta"><span class="live-dot"></span> 8–14 min</span></div>
+        <div class="zone"><span class="sw z2"></span><span class="zn"><b>Swayambhu, Dallu, Chhauni</b></span><span class="chip chip-eta"><span class="live-dot"></span> 12–18 min</span></div>
+        <div class="zone"><span class="sw z2"></span><span class="zn"><b>Kalanki, Balaju, Banasthali</b></span><span class="chip chip-eta"><span class="live-dot"></span> 14–22 min</span></div>
+        <div class="zone"><span class="sw z3"></span><span class="zn"><b>Thamel, Lazimpat, Kalimati</b></span><span class="chip chip-eta"><span class="live-dot"></span> 20–30 min</span></div>
+        <div class="zone"><span class="sw z4"></span><span class="zn"><b>New Road, Baneshwor, Lalitpur</b><span>Scheduled slots only</span></span><span class="chip chip-eta"><span class="live-dot"></span> 30–45 min</span></div>
+        <div class="zone-foot"><span class="t-small t-muted">Not on the list? Enter your landmark and we'll tell you honestly.</span><a class="btn btn-outline btn-sm" href="#"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg> Check my area</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="np-kicker">अंकमा · In numbers</div><h2>Small team, big promise</h2></div></div>
+    <div class="stats">
+      <div class="stat"><span class="num">1,554</span><span class="lbl">Items in stock</span><span class="sub">From Rara noodles to baby wipes</span></div>
+      <div class="stat"><span class="num">24×7</span><span class="lbl">Open every hour</span><span class="sub">Store, kitchen and WhatsApp help</span></div>
+      <div class="stat"><span class="num">XX,XXX</span><span class="lbl">Orders delivered</span><span class="sub">Since launch</span><span class="placeholder-note">Sample figure</span></div>
+      <div class="stat"><span class="num">4.X ★</span><span class="lbl">Average rating</span><span class="sub">From app reviews</span><span class="placeholder-note">Sample figure</span></div>
+    </div>
+    <div class="company">
+      <dl class="company-card"><dt>Company</dt><dd>Shopit Nepal Pvt. Ltd.</dd><dt>Registration no.</dt><dd>376790/82/83</dd><dt>PAN / VAT</dt><dd>60XXXXXXX <span class="placeholder-note">To confirm</span></dd><dt>Address</dt><dd>Sitapaila, Nagarjun-4, Kathmandu</dd></dl>
+      <dl class="company-card trust-mini"><dt>Pay</dt><dd><span class="pay-pill pay-cod">Cash on delivery</span><span class="pay-pill pay-esewa">eSewa</span><span class="pay-pill pay-khalti">Khalti</span></dd><dt>Bill</dt><dd>VAT bill with every order</dd><dt>Fresh or refund</dt><dd>Expired, damaged or wrong? Free fix</dd><dt>Help</dt><dd>WhatsApp +977 971-2023010, 24×7</dd></dl>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="contact">
+      <div class="copy">
+        <div class="np-kicker">कुरा गरौं · Kura garau</div>
+        <h2>Questions? Talk to a real person.</h2>
+        <p>Order stuck, item missing, or want to suggest a product? Message us on WhatsApp. A human replies in minutes, day or night.</p>
+      </div>
+      <div class="contact-actions">
+        <a class="btn btn-whatsapp btn-lg btn-block" href="#"><svg class="icon" viewBox="0 0 24 24"><path d="M4 20l1.4-4A8 8 0 1 1 8.3 18.7z"/></svg> WhatsApp +977 971-2023010</a>
+        <div class="contact-row"><svg class="icon" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg><span>+977 971-2023010<small>Call us, 24×7</small></span></div>
+        <div class="contact-row"><svg class="icon" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span>Sitapaila, Nagarjun-4, Kathmandu<small>Store and cloud kitchen</small></span></div>
+      </div>
+    </div>
+  </section>
+</div>
+</main>
+
+<!-- ===================== FOOTER (copy verbatim) ===================== -->
+<footer class="site-footer">
+  <div class="footer-promise">
+    <div class="container">
+      <div class="promise"><span class="p-ico"><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><div><div class="p-title">8–14 min, honestly</div><div class="p-sub">A live ETA range, never a fake countdown</div></div></div>
+      <div class="promise"><span class="p-ico"><svg class="icon" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/></svg></span><div><div class="p-title">Pay at your door</div><div class="p-sub">Cash on delivery, or eSewa and Khalti</div></div></div>
+      <div class="promise"><span class="p-ico"><svg class="icon" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg></span><div><div class="p-title">Taaja guarantee</div><div class="p-sub">Expired or damaged? We replace it free</div></div></div>
+      <div class="promise"><span class="p-ico"><svg class="icon" viewBox="0 0 24 24"><path d="M4 20l1.4-4A8 8 0 1 1 8.3 18.7z"/></svg></span><div><div class="p-title">Real humans, 24×7</div><div class="p-sub">WhatsApp +977 971-2023010</div></div></div>
+    </div>
+  </div>
+  <div class="footer-main">
+    <div class="container">
+      <div class="footer-brand">
+        <a class="logo logo-tile" href="#"><img src="https://www.shopitnepal.com/footer-logo.svg" alt="ShopIt"></a>
+        <p class="footer-tagline">Your corner shop, now at app speed. Groceries, snacks and hot food from our own cloud kitchen, delivered across Kathmandu in minutes. <span class="np">उज्यालो पसल, छिटो सेवा।</span></p>
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <a href="#">Cloud Kitchen</a><a href="#">Daily Groceries</a><a href="#">Snacks &amp; Drinks</a><a href="#">Baby Products</a><a href="#">Midnight Cravings 🌙</a>
+      </div>
+      <div class="footer-col">
+        <h4>Help</h4>
+        <a href="#">Track my order</a><a href="#">Returns &amp; refunds</a><a href="#">Where we deliver</a><a href="#">FAQs</a><a class="wa" href="#"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M4 20l1.4-4A8 8 0 1 1 8.3 18.7z"/></svg> WhatsApp us</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="#">About us</a><a href="#">Company info</a><a href="#">Contact</a><a href="#">Privacy policy</a><a href="#">Terms &amp; conditions</a>
+      </div>
+      <div class="footer-col">
+        <h4>Get the app</h4>
+        <a class="app-badge" href="#"><svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M5 3l14 9-14 9z"/></svg><span><small>Get it on</small><strong>Google Play</strong></span></a>
+        <a class="app-badge" href="#"><svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M12 8c-1.2 0-2.4-.8-4-.8-3 0-4.5 2.6-4.5 5.6 0 4 2.5 8.2 4.5 8.2 1.2 0 2-.7 4-.7s2.8.7 4 .7c2 0 4.5-4.2 4.5-8.2 0-3-1.5-5.6-4.5-5.6-1.6 0-2.8.8-4 .8zM12 7c0-2 1.5-4 3.5-4"/></svg><span><small>Download on the</small><strong>App Store</strong></span></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-legal">
+    <div class="container">
+      <p class="legal-text">© 2026 Shopit Nepal Pvt. Ltd. · Reg. no. 376790/82/83 · PAN 60XXXXXXX · Sitapaila, Nagarjun-4, Kathmandu · Made with maya in Kathmandu</p>
+      <div class="pays"><span class="pay-pill pay-cod">Cash on delivery</span><span class="pay-pill pay-esewa">eSewa</span><span class="pay-pill pay-khalti">Khalti</span></div>
+    </div>
+  </div>
+</footer>
+<!-- =================== /FOOTER =================== -->
+</body>
+</html>
